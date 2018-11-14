@@ -1,0 +1,18 @@
+{
+	"doors": [
+		{
+			"name": "MetalDoor",
+			"tileset": "Door0",
+			"textures": [
+				{
+					"name": "closed",
+					"id": 14
+				},
+				{
+					"name": "open",
+					"id": 8
+				}
+			]
+		}
+	]
+}

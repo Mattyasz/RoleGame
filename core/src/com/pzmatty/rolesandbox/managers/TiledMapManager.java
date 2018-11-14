@@ -19,42 +19,69 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.pzmatty.rolesandbox.objects.GameObject;
 import com.pzmatty.rolesandbox.objects.GameObjectFactory;
 import com.pzmatty.rolesandbox.objects.ISwitch;
+import com.pzmatty.rolesandbox.objects.entities.Character;
 import com.pzmatty.rolesandbox.objects.entities.Entity;
 import com.pzmatty.rolesandbox.objects.entities.Trigger;
 
 public class TiledMapManager {
 
 	private static final String TAG = TiledMapManager.class.getSimpleName();
-	private TiledMap map;
-	private OrthogonalTiledMapRenderer renderer;
-	private OrthographicCamera camera;
-	private FitViewport viewport;
-	private Array<Entity> entities;
-	private Array<ISwitch> switchs;
-	private Array<Trigger> triggers;
-	private SpriteBatch batch;
 	public static final float WORLD_TO_SCREEN = 1 / 16f;
 	public static final float WORLD_UNIT = 16;
 	private static final float WORLD_WIDTH = 26;
 	private static final float WORLD_HEIGHT = 16;
 	public static final float ASPECT_RATIO = Gdx.graphics.getWidth() / Gdx.graphics.getHeight();
 
+	private TiledMap map;
+	private OrthogonalTiledMapRenderer renderer;
+	private OrthographicCamera camera;
+	private SpriteBatch batch;
+	private FitViewport viewport;
+
+	private Array<Entity> entities;
+	private Array<ISwitch> switchs;
+	private Array<Trigger> triggers;
+
 	private TiledMapTileLayer collisionLayer;
 	private MapObjects objectLayer;
 
+	private Character player;
+
 	public TiledMapManager(SpriteBatch batch, String mapName) {
-		entities = new Array<>();
-		switchs = new Array<>();
-		triggers = new Array<>();
+		this.entities = new Array<>();
+		this.switchs = new Array<>();
+		this.triggers = new Array<>();
+
 		this.camera = new OrthographicCamera();
-		viewport = new FitViewport(WORLD_WIDTH * ASPECT_RATIO, WORLD_HEIGHT, camera);
+		this.viewport = new FitViewport(WORLD_WIDTH * ASPECT_RATIO, WORLD_HEIGHT, camera);
+
 		this.map = AssetsManager.get(DatabaseManager.getConstant(mapName), TiledMap.class);
-		this.batch = batch;
 		this.renderer = new OrthogonalTiledMapRenderer(map, WORLD_TO_SCREEN, batch);
+
+		this.batch = batch;
 
 		collisionLayer = (TiledMapTileLayer) map.getLayers().get("CollisionLayer");
 		collisionLayer.setVisible(false);
 		objectLayer = map.getLayers().get("ObjectLayer").getObjects();
+
+		Vector2 playerPos = getSpawnPosition("Spawn.PlayerSpawn");
+		Rectangle playerRect = new Rectangle(playerPos.x, playerPos.y, 16, 16);
+
+		this.player = GameObjectFactory.createCharacter("Paesant", playerRect);
+	}
+
+	public void create() {
+		setCameraPosition(player.getPosition());
+		addEntity(player);
+		loadEntities();
+	}
+
+	public Character getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Character character) {
+		player = character;
 	}
 
 	public Entity getEntity(int index) {

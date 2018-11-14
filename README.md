@@ -25,6 +25,7 @@ Libgdx roleplay test game
   - [x] Movement
   - [ ] Scriptable Triggers
   - [x] Data-Driven system (with SQLite)
+  - [ ] In-game map cursor
 
 
 > Matias Perez

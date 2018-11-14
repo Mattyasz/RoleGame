@@ -1,15 +1,24 @@
 package com.pzmatty.rolesandbox.objects;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.pzmatty.rolesandbox.managers.AssetsManager;
+import com.pzmatty.rolesandbox.managers.DatabaseManager;
 import com.pzmatty.rolesandbox.managers.TiledMapManager;
+import com.pzmatty.rolesandbox.objects.entities.Character;
+import com.pzmatty.rolesandbox.objects.entities.StaticEntity;
 import com.pzmatty.rolesandbox.objects.entities.Trigger;
 import com.pzmatty.rolesandbox.objects.entities.switchs.DoorSwitch;
-import com.pzmatty.rolesandbox.objects.entities.Character;
 
 public abstract class GameObjectFactory {
 
+	private static Rectangle baseRect = new Rectangle(0, 0, 16 * TiledMapManager.WORLD_TO_SCREEN,
+			16 * TiledMapManager.WORLD_TO_SCREEN);
 	private static CollisionObject collisionObject = new CollisionObject();
+	private static StaticEntity cursor = new StaticEntity(
+			new TextureRegion(AssetsManager.get(DatabaseManager.getConstant("CURSOR"), Texture.class)),
+			new Rectangle(baseRect), false, "SELECTOR");
 
 	private GameObjectFactory() {
 	}
@@ -45,6 +54,10 @@ public abstract class GameObjectFactory {
 
 	public static CollisionObject getCollisionObject() {
 		return collisionObject;
+	}
+
+	public static StaticEntity getCursor() {
+		return cursor;
 	}
 
 }

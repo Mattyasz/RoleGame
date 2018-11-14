@@ -8,7 +8,7 @@ import com.pzmatty.rolesandbox.objects.entities.Entity;
 public class PlayerController extends InputAdapter {
 
 	public static enum PlayerState {
-		PLAYER, SELECTOR
+		PLAYER, CURSOR
 	}
 
 	private Entity entity;
@@ -26,7 +26,7 @@ public class PlayerController extends InputAdapter {
 		if (state.equals(PlayerState.PLAYER)) {
 			evaluateMap(keycode);
 			return true;
-		} else if (state.equals(PlayerState.SELECTOR)) {
+		} else if (state.equals(PlayerState.CURSOR)) {
 			return true;
 		} else {
 			return true;

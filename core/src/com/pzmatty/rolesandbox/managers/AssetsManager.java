@@ -41,11 +41,6 @@ public abstract class AssetsManager {
 		return assets.get(fileName, type);
 	}
 
-	public static TextureRegion getStatic(String name) {
-		// TODO Create getStatic method for static tiles.
-		return null;
-	}
-
 	public static TextureRegion[] getAnimated(String name, String type) {
 		Array<String> parts = DatabaseManager.getAnimationData(name, type);
 		TextureRegion[] textures = new TextureRegion[2];

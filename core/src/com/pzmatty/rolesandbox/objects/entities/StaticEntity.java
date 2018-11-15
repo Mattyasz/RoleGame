@@ -9,13 +9,13 @@ public class StaticEntity extends Entity {
 
 	private TextureRegion texture;
 
-	public StaticEntity(TextureRegion texture, Rectangle rect, boolean block, String type) {
-		super(rect, block, type);
+	public StaticEntity(TextureRegion texture, Rectangle rect, boolean block, String type, String name) {
+		super(rect, block, type, name);
 		this.texture = texture;
 	}
 
-	public StaticEntity(Texture texture, Rectangle rect, boolean block, String type) {
-		super(rect, block, type);
+	public StaticEntity(Texture texture, Rectangle rect, boolean block, String type, String name) {
+		super(rect, block, type, name);
 		this.texture = new TextureRegion(texture);
 	}
 

@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.pzmatty.rolesandbox.managers.TiledMapManager;
 import com.pzmatty.rolesandbox.managers.TiledMapManager.ActionState;
 import com.pzmatty.rolesandbox.objects.GameObjectFactory;
@@ -68,15 +70,25 @@ public class CursorController extends InputAdapter {
 			y = 1;
 			break;
 		case Keys.ESCAPE:
-			Gdx.input.setInputProcessor(game.getPlayerController());
+			Gdx.input.setInputProcessor(game.getPlayerController().set());
 			tilemap.setState(ActionState.PLAYER);
+			game.getUI().getActor("InfoCursor", Label.class).setText(" ");
 		}
 
 		if (x != 0 || y != 0) {
 			entity.translate(new Vector2(x, y));
+			tilemap.setCameraPosition(entity.getPosition());
+			tilemap.getCamera().update();
 		}
+		
+		showTileInfo();
 
 		return true;
+	}
+
+	private void showTileInfo() {
+		Label actor = game.getUI().getActor("InfoCursor", Label.class);
+		actor.setText(tilemap.getTileInfo(entity.getPosition()));
 	}
 
 	public CursorController set(Vector2 position) {

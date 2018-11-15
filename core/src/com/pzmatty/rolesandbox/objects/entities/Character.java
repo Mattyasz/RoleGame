@@ -5,8 +5,8 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class Character extends AnimatedEntity {
 
-	public Character(TextureRegion[] textures, Rectangle rect) {
-		super(textures, rect, true, true, "CHAR");
+	public Character(TextureRegion[] textures, Rectangle rect, String name) {
+		super(textures, rect, true, true, "CHAR", name);
 	}
 
 }

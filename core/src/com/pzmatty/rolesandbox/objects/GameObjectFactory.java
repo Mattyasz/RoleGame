@@ -18,7 +18,7 @@ public abstract class GameObjectFactory {
 	private static CollisionObject collisionObject = new CollisionObject();
 	private static StaticEntity cursor = new StaticEntity(
 			new TextureRegion(AssetsManager.get(DatabaseManager.getConstant("CURSOR"), Texture.class)),
-			new Rectangle(baseRect), false, "CURSOR");
+			new Rectangle(baseRect), false, "CURSOR", "Cursor");
 
 	private GameObjectFactory() {
 	}
@@ -28,7 +28,7 @@ public abstract class GameObjectFactory {
 			return new Character(AssetsManager.getAnimated(name, "CHAR"),
 					new Rectangle(rect.x * TiledMapManager.WORLD_TO_SCREEN, rect.y * TiledMapManager.WORLD_TO_SCREEN,
 							rect.width * TiledMapManager.WORLD_TO_SCREEN,
-							rect.height * TiledMapManager.WORLD_TO_SCREEN));
+							rect.height * TiledMapManager.WORLD_TO_SCREEN), name);
 		} else {
 			return null;
 		}
@@ -40,7 +40,7 @@ public abstract class GameObjectFactory {
 					new Rectangle(rect.x * TiledMapManager.WORLD_TO_SCREEN, rect.y * TiledMapManager.WORLD_TO_SCREEN,
 							rect.width * TiledMapManager.WORLD_TO_SCREEN,
 							rect.height * TiledMapManager.WORLD_TO_SCREEN),
-					block);
+					block, name);
 		} else {
 			return null;
 		}

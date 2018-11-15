@@ -58,19 +58,26 @@ public class UIManager {
 		stage.dispose();
 	}
 
-	public void addActor(Actor actor) {
+	public void addActor(Actor actor, String name) {
+		actor.setName(name);
 		list.add(actor);
 	}
 
-	public Actor getActor(String name) {
-		for (Actor actor : stage.getActors()) {
+	@SuppressWarnings("unchecked")
+	public <T> T getActor(String name, Class<T> type) {
+		for (Actor actor : list) {
 			if (actor.getName() != null && actor.getName().equals(name)) {
-				return actor;
-			} else if (actor instanceof Group) {
-				return ((Group) actor).findActor(name);
+				return (T) actor;
 			}
-		}
-		return null;
+		} return null;
+//		for (Actor actor : stage.getActors()) {
+//			if (actor.getName() != null && actor.getName().equals(name)) {
+//				return actor;
+//			} else if (actor instanceof Group) {
+//				return ((Group) actor).findActor(name);
+//			}
+//		}
+//		return null;
 	}
 
 }

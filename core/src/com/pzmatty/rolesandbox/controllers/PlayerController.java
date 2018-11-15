@@ -104,5 +104,11 @@ public class PlayerController extends InputAdapter {
 			}
 		}
 	}
+	
+	public PlayerController set() {
+		tilemap.setCameraPosition(entity.getPosition());
+		tilemap.getCamera().update();
+		return this;
+	}
 
 }

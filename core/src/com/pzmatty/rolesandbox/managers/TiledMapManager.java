@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
@@ -49,6 +50,8 @@ public class TiledMapManager {
 	private Array<Trigger> triggers;
 
 	private TiledMapTileLayer collisionLayer;
+	private TiledMapTileLayer tileLayer;
+	private TiledMapTileLayer decorationLayer;
 	private MapObjects objectLayer;
 
 	private Character player;
@@ -68,6 +71,8 @@ public class TiledMapManager {
 		this.batch = batch;
 
 		collisionLayer = (TiledMapTileLayer) map.getLayers().get("CollisionLayer");
+		tileLayer = (TiledMapTileLayer) map.getLayers().get("TileLayer");
+		decorationLayer = (TiledMapTileLayer) map.getLayers().get("DecorationLayer");
 		collisionLayer.setVisible(false);
 		objectLayer = map.getLayers().get("ObjectLayer").getObjects();
 
@@ -218,6 +223,31 @@ public class TiledMapManager {
 			}
 		}
 		return false;
+	}
+	
+	public String getTileInfo(Vector2 position) {
+		for (Entity other : entities) {
+			if (other.getPosition().equals(position)) {
+				return other.getName();
+			}
+		}
+		for (ISwitch other : switchs) {
+			if (((GameObject) other).getPosition().equals(position)) {
+				return ((Entity)other).getName();
+			}
+		}
+		
+		Cell cell = decorationLayer.getCell((int) position.x, (int) position.y);
+		if (cell != null) {
+			TiledMapTile tile = cell.getTile();
+			return tile.getProperties().get("name").toString();
+		} else {
+			cell = tileLayer.getCell((int) position.x, (int) position.y);
+			if (cell != null) {
+				TiledMapTile tile = cell.getTile();
+				return tile.getProperties().get("name").toString();				
+			}
+		} return null;
 	}
 
 	public void triggerOnEnter(Vector2 position) {

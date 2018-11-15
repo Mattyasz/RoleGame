@@ -69,15 +69,16 @@ public class UIManager {
 			if (actor.getName() != null && actor.getName().equals(name)) {
 				return (T) actor;
 			}
-		} return null;
-//		for (Actor actor : stage.getActors()) {
-//			if (actor.getName() != null && actor.getName().equals(name)) {
-//				return actor;
-//			} else if (actor instanceof Group) {
-//				return ((Group) actor).findActor(name);
-//			}
-//		}
-//		return null;
+		}
+		return null;
+		// for (Actor actor : stage.getActors()) {
+		// if (actor.getName() != null && actor.getName().equals(name)) {
+		// return actor;
+		// } else if (actor instanceof Group) {
+		// return ((Group) actor).findActor(name);
+		// }
+		// }
+		// return null;
 	}
 
 }

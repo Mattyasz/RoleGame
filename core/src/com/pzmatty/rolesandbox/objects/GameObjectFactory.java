@@ -28,7 +28,8 @@ public abstract class GameObjectFactory {
 			return new Character(AssetsManager.getAnimated(name, "CHAR"),
 					new Rectangle(rect.x * TiledMapManager.WORLD_TO_SCREEN, rect.y * TiledMapManager.WORLD_TO_SCREEN,
 							rect.width * TiledMapManager.WORLD_TO_SCREEN,
-							rect.height * TiledMapManager.WORLD_TO_SCREEN), name);
+							rect.height * TiledMapManager.WORLD_TO_SCREEN),
+					name);
 		} else {
 			return null;
 		}

@@ -65,28 +65,28 @@ public class ScreenGame extends ScreenAdapter {
 			@Override
 			public void configActors() {
 
-				 VerticalGroup options = new VerticalGroup();
-				 addActor(new Label("", skin, "default"), "InfoCursor");
-				 //List<String> varList = new List<>(skin);
-				
-//				 ScrollPane scrollOptions = new ScrollPane(options, skin);
-				 //ScrollPane scrollVariables = new ScrollPane(varList, skin);
-				
-				 table.setFillParent(true);
-				
-				 table.setWidth(Gdx.graphics.getWidth());
-				 table.top();
-				
-				 getActor("InfoCursor", Label.class).setWrap(true);
-				 options.align(Align.topLeft).pad(5);
-				 options.columnLeft();
-				
-				 table.add(getActor("InfoCursor", Label.class)).expandX().left().fillX().top().pad(10);
-				 //table.add(scrollVariables).right().width(120).fillY().top().pad(10).expandY().height(250);
-//				 table.row().height(100);
-//				 table.add(scrollOptions).bottom().fillX().fillY().pad(10).colspan(2);
-				
-				 stage.addActor(table);
+				VerticalGroup options = new VerticalGroup();
+				addActor(new Label("", skin, "default"), "InfoCursor");
+				// List<String> varList = new List<>(skin);
+
+				// ScrollPane scrollOptions = new ScrollPane(options, skin);
+				// ScrollPane scrollVariables = new ScrollPane(varList, skin);
+
+				table.setFillParent(true);
+
+				table.setWidth(Gdx.graphics.getWidth());
+				table.top();
+
+				getActor("InfoCursor", Label.class).setWrap(true);
+				options.align(Align.topLeft).pad(5);
+				options.columnLeft();
+
+				table.add(getActor("InfoCursor", Label.class)).expandX().left().fillX().top().pad(10);
+				// table.add(scrollVariables).right().width(120).fillY().top().pad(10).expandY().height(250);
+				// table.row().height(100);
+				// table.add(scrollOptions).bottom().fillX().fillY().pad(10).colspan(2);
+
+				stage.addActor(table);
 			}
 
 		};
@@ -95,7 +95,7 @@ public class ScreenGame extends ScreenAdapter {
 	public TiledMapManager getTiledMap() {
 		return map;
 	}
-	
+
 	public UIManager getUI() {
 		return ui;
 	}

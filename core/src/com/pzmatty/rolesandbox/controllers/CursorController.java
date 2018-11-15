@@ -70,9 +70,10 @@ public class CursorController extends InputAdapter {
 			y = 1;
 			break;
 		case Keys.ESCAPE:
+			game.getUI().getActor("InfoCursor", Label.class).setText("");
 			Gdx.input.setInputProcessor(game.getPlayerController().set());
 			tilemap.setState(ActionState.PLAYER);
-			game.getUI().getActor("InfoCursor", Label.class).setText(" ");
+			break;
 		}
 
 		if (x != 0 || y != 0) {
@@ -80,8 +81,9 @@ public class CursorController extends InputAdapter {
 			tilemap.setCameraPosition(entity.getPosition());
 			tilemap.getCamera().update();
 		}
-		
-		showTileInfo();
+
+		if (keycode != Keys.ESCAPE)
+			showTileInfo();
 
 		return true;
 	}
@@ -93,6 +95,7 @@ public class CursorController extends InputAdapter {
 
 	public CursorController set(Vector2 position) {
 		this.entity.setPosition(position);
+		showTileInfo();
 		return this;
 	}
 

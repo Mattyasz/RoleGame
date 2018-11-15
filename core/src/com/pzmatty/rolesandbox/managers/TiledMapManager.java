@@ -224,7 +224,7 @@ public class TiledMapManager {
 		}
 		return false;
 	}
-	
+
 	public String getTileInfo(Vector2 position) {
 		for (Entity other : entities) {
 			if (other.getPosition().equals(position)) {
@@ -233,10 +233,10 @@ public class TiledMapManager {
 		}
 		for (ISwitch other : switchs) {
 			if (((GameObject) other).getPosition().equals(position)) {
-				return ((Entity)other).getName();
+				return ((Entity) other).getName();
 			}
 		}
-		
+
 		Cell cell = decorationLayer.getCell((int) position.x, (int) position.y);
 		if (cell != null) {
 			TiledMapTile tile = cell.getTile();
@@ -245,9 +245,10 @@ public class TiledMapManager {
 			cell = tileLayer.getCell((int) position.x, (int) position.y);
 			if (cell != null) {
 				TiledMapTile tile = cell.getTile();
-				return tile.getProperties().get("name").toString();				
+				return tile.getProperties().get("name").toString();
 			}
-		} return null;
+		}
+		return null;
 	}
 
 	public void triggerOnEnter(Vector2 position) {

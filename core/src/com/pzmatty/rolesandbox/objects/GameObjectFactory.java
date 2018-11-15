@@ -18,7 +18,7 @@ public abstract class GameObjectFactory {
 	private static CollisionObject collisionObject = new CollisionObject();
 	private static StaticEntity cursor = new StaticEntity(
 			new TextureRegion(AssetsManager.get(DatabaseManager.getConstant("CURSOR"), Texture.class)),
-			new Rectangle(baseRect), false, "SELECTOR");
+			new Rectangle(baseRect), false, "CURSOR");
 
 	private GameObjectFactory() {
 	}

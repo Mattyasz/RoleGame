@@ -16,7 +16,7 @@ public abstract class GameObject {
 	}
 
 	public void setPosition(Vector2 position) {
-		position.set(position);
+		rect.setPosition(position);
 	}
 
 	public void translate(Vector2 position) {
@@ -28,7 +28,7 @@ public abstract class GameObject {
 		return new Vector2(rect.x, rect.y);
 	}
 
-	public Vector2 getMovePosition(int x, int y) {
+	public Vector2 getMovedPosition(int x, int y) {
 		return getPosition().cpy().add(x, y);
 	}
 

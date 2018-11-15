@@ -21,7 +21,7 @@ public class StaticEntity extends Entity {
 
 	@Override
 	public void draw(SpriteBatch batch) {
-		batch.draw(texture, rect.x, rect.y);
+		batch.draw(texture, rect.x, rect.y, rect.width, rect.height);
 	}
 
 }

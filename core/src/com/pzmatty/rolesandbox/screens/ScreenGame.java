@@ -4,7 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.pzmatty.rolesandbox.RoleSandbox;
-import com.pzmatty.rolesandbox.managers.PlayerController;
+import com.pzmatty.rolesandbox.controllers.CursorController;
+import com.pzmatty.rolesandbox.controllers.PlayerController;
 import com.pzmatty.rolesandbox.managers.TiledMapManager;
 import com.pzmatty.rolesandbox.managers.UIManager;
 
@@ -15,13 +16,15 @@ public class ScreenGame extends ScreenAdapter {
 	private TiledMapManager map;
 	private UIManager ui;
 	private PlayerController controller;
+	private CursorController cursor;
 	private RoleSandbox game;
 
 	public ScreenGame(RoleSandbox game) {
 		this.game = game;
 		map = new TiledMapManager(game.getBatch(), "MAP_01");
 		ui = configUI();
-		controller = new PlayerController(map, map.getPlayer());
+		controller = new PlayerController(this, map.getPlayer());
+		cursor = new CursorController(this);
 		Gdx.input.setInputProcessor(controller);
 	}
 
@@ -82,6 +85,18 @@ public class ScreenGame extends ScreenAdapter {
 			}
 
 		};
+	}
+
+	public TiledMapManager getTiledMap() {
+		return map;
+	}
+
+	public PlayerController getPlayerController() {
+		return controller;
+	}
+
+	public CursorController getCursorController() {
+		return cursor;
 	}
 
 }

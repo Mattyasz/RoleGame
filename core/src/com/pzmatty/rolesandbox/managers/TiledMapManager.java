@@ -25,6 +25,12 @@ import com.pzmatty.rolesandbox.objects.entities.Trigger;
 
 public class TiledMapManager {
 
+	public static enum ActionState {
+		PLAYER, CURSOR
+	}
+
+	private ActionState state;
+
 	private static final String TAG = TiledMapManager.class.getSimpleName();
 	public static final float WORLD_TO_SCREEN = 1 / 16f;
 	public static final float WORLD_UNIT = 16;
@@ -48,6 +54,7 @@ public class TiledMapManager {
 	private Character player;
 
 	public TiledMapManager(SpriteBatch batch, String mapName) {
+		this.state = ActionState.PLAYER;
 		this.entities = new Array<>();
 		this.switchs = new Array<>();
 		this.triggers = new Array<>();
@@ -99,6 +106,10 @@ public class TiledMapManager {
 		return viewport;
 	}
 
+	public void setState(ActionState state) {
+		this.state = state;
+	}
+
 	public void render(float delta) {
 
 		camera.update();
@@ -108,6 +119,9 @@ public class TiledMapManager {
 
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
+		if (state.equals(ActionState.CURSOR)) {
+			GameObjectFactory.getCursor().draw(batch);
+		}
 		for (Entity ent : entities) {
 			ent.draw(batch);
 		}

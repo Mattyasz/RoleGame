@@ -4,23 +4,25 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.pzmatty.rolesandbox.managers.TiledMapManager;
 import com.pzmatty.rolesandbox.managers.TiledMapManager.ActionState;
+import com.pzmatty.rolesandbox.managers.UIManager;
 import com.pzmatty.rolesandbox.objects.GameObjectFactory;
 import com.pzmatty.rolesandbox.objects.entities.Entity;
 import com.pzmatty.rolesandbox.screens.ScreenGame;
+import com.pzmatty.rolesandbox.ui.InfoGroupUI;
 
 public class CursorController extends InputAdapter {
 
 	private TiledMapManager tilemap;
 	private Entity entity;
 	private ScreenGame game;
+	private UIManager ui;
 
 	public CursorController(ScreenGame game) {
 		this.game = game;
 		this.tilemap = game.getTiledMap();
+		this.ui = game.getUI();
 		this.entity = GameObjectFactory.getCursor();
 	}
 
@@ -70,7 +72,8 @@ public class CursorController extends InputAdapter {
 			y = 1;
 			break;
 		case Keys.ESCAPE:
-			game.getUI().getActor("InfoCursor", Label.class).setText("");
+			game.getUI().getActor("Info", InfoGroupUI.class).setInfo("");
+			game.getUI().getActor("Info", InfoGroupUI.class).setVisible(false);
 			Gdx.input.setInputProcessor(game.getPlayerController().set());
 			tilemap.setState(ActionState.PLAYER);
 			break;
@@ -89,8 +92,7 @@ public class CursorController extends InputAdapter {
 	}
 
 	private void showTileInfo() {
-		Label actor = game.getUI().getActor("InfoCursor", Label.class);
-		actor.setText(tilemap.getTileInfo(entity.getPosition()));
+		ui.getActor("Info", InfoGroupUI.class).setInfo(tilemap.getTileInfo(entity.getPosition()));
 	}
 
 	public CursorController set(Vector2 position) {

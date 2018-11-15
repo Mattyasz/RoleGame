@@ -3,16 +3,15 @@ package com.pzmatty.rolesandbox.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
-import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
-import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
-import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.pzmatty.rolesandbox.RoleSandbox;
 import com.pzmatty.rolesandbox.controllers.CursorController;
 import com.pzmatty.rolesandbox.controllers.PlayerController;
+import com.pzmatty.rolesandbox.managers.AssetsManager;
+import com.pzmatty.rolesandbox.managers.DatabaseManager;
 import com.pzmatty.rolesandbox.managers.TiledMapManager;
 import com.pzmatty.rolesandbox.managers.UIManager;
+import com.pzmatty.rolesandbox.ui.InfoGroupUI;
 
 public class ScreenGame extends ScreenAdapter {
 
@@ -64,29 +63,40 @@ public class ScreenGame extends ScreenAdapter {
 
 			@Override
 			public void configActors() {
+				Skin skin = AssetsManager.get(DatabaseManager.getConstant("SKIN_PATH"), Skin.class);
 
-				VerticalGroup options = new VerticalGroup();
-				addActor(new Label("", skin, "default"), "InfoCursor");
-				// List<String> varList = new List<>(skin);
-
-				// ScrollPane scrollOptions = new ScrollPane(options, skin);
-				// ScrollPane scrollVariables = new ScrollPane(varList, skin);
-
+				addActor(new InfoGroupUI(skin), "Info");
+				
 				table.setFillParent(true);
-
+				
 				table.setWidth(Gdx.graphics.getWidth());
 				table.top();
-
-				getActor("InfoCursor", Label.class).setWrap(true);
-				options.align(Align.topLeft).pad(5);
-				options.columnLeft();
-
-				table.add(getActor("InfoCursor", Label.class)).expandX().left().fillX().top().pad(10);
-				// table.add(scrollVariables).right().width(120).fillY().top().pad(10).expandY().height(250);
-				// table.row().height(100);
-				// table.add(scrollOptions).bottom().fillX().fillY().pad(10).colspan(2);
-
+				
+				table.add(getActor("Info", InfoGroupUI.class)).right().width(200).height(80).expandX();
 				stage.addActor(table);
+				
+//				addActor(new Label("", skin, "default"), "InfoCursor");
+//				 List<String> varList = new List<>(skin);
+//
+//				 ScrollPane scrollOptions = new ScrollPane(options, skin);
+//				 ScrollPane scrollVariables = new ScrollPane(varList, skin);
+//
+//				table.setFillParent(true);
+//
+//				table.setWidth(Gdx.graphics.getWidth());
+//				table.top();
+//
+//				getActor("InfoCursor", Label.class).setWrap(true);
+//				options.align(Align.topLeft).pad(5);
+//				options.columnLeft();
+//
+//				table.add();
+//				table.add(getActor("InfoCursor", Label.class)).expandX().left().fillX().top().pad(10);
+//				table.add(scrollVariables).right().width(120).fillY().top().pad(10).expandY().height(250);
+//				table.row().height(100);
+//				table.add(scrollOptions).bottom().fillX().fillY().pad(10).colspan(2);
+//
+//				stage.addActor(table);
 			}
 
 		};

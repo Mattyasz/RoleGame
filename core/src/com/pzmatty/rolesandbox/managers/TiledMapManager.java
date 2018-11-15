@@ -70,6 +70,7 @@ public class TiledMapManager {
 
 		this.batch = batch;
 
+		this.map.getLayers().get("MarkLayer").setVisible(false);
 		collisionLayer = (TiledMapTileLayer) map.getLayers().get("CollisionLayer");
 		tileLayer = (TiledMapTileLayer) map.getLayers().get("TileLayer");
 		decorationLayer = (TiledMapTileLayer) map.getLayers().get("DecorationLayer");
@@ -229,11 +230,6 @@ public class TiledMapManager {
 		for (Entity other : entities) {
 			if (other.getPosition().equals(position)) {
 				return other.getName();
-			}
-		}
-		for (ISwitch other : switchs) {
-			if (((GameObject) other).getPosition().equals(position)) {
-				return ((Entity) other).getName();
 			}
 		}
 

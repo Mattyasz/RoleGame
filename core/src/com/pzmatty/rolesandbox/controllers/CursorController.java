@@ -92,7 +92,10 @@ public class CursorController extends InputAdapter {
 	}
 
 	private void showTileInfo() {
-		ui.getActor("Info", InfoGroupUI.class).setInfo(tilemap.getTileInfo(entity.getPosition()));
+		String info = tilemap.getTileInfo(entity.getPosition());
+		if (info == null) info = "Void";
+		ui.getActor("Info", InfoGroupUI.class)
+		.setInfo(info);
 	}
 
 	public CursorController set(Vector2 position) {

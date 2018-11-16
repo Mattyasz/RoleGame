@@ -19,7 +19,7 @@ public abstract class DatabaseManager {
 	private static final String STR_CONSTANT = "SELECT c.value FROM constants c WHERE c.name = ?";
 	private static final String STR_CHAR_VAL = "SELECT c.? FROM characters c WHERE c.char_name = ?";
 	private static final String STR_ANIM_CHAR = "select a.tileset, a.x, a.y from animations a, characters c where a.id = c.animation and c.name = ?";
-	private static final String STR_ANIM_SWITCH = "select a.tileset, a.x, a.y from animations a, switchs s where a.id = s.animation and s.name = ?";
+	private static final String STR_ANIM_SWITCH = "select a.tileset, a.x, a.y from animations a, switchs s where a.id = s.animation*V1* and s.name = ?";
 	private static final String STR_ASSETS_PATH = "select c.format, c.value from constants c where c.format != 'GAME'";
 
 	public static void connect() {
@@ -71,6 +71,26 @@ public abstract class DatabaseManager {
 				str = STR_ANIM_CHAR;
 			} else if (type.equals("SWITCH")) {
 				str = STR_ANIM_SWITCH;
+			}
+			PreparedStatement stm = con.prepareStatement(str);
+			stm.setString(1, entity);
+			ResultSet rs = stm.executeQuery();
+			Array<String> parts = new Array<String>(
+					new String[] { rs.getString(1), String.valueOf(rs.getInt(2)), String.valueOf(rs.getInt(3)) });
+			return parts;
+		} catch (SQLException e) {
+			Gdx.app.log(TAG, "Error - " + e.getMessage());
+			return null;
+		}
+	}
+	
+	public static Array<String> getAnimationData(String entity, String type, String align) {
+		try {
+			String str = null;
+			if (type.equals("CHAR")) {
+				str = STR_ANIM_CHAR;
+			} else if (type.equals("SWITCH")) {
+				str = STR_ANIM_SWITCH.replace("*V1*", align);
 			}
 			PreparedStatement stm = con.prepareStatement(str);
 			stm.setString(1, entity);

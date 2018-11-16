@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.pzmatty.rolesandbox.managers.AssetsManager;
 import com.pzmatty.rolesandbox.managers.DatabaseManager;
 import com.pzmatty.rolesandbox.managers.TiledMapManager;
@@ -82,7 +83,7 @@ public class CursorController extends InputAdapter {
 			y = 1;
 			break;
 		case Keys.ESCAPE:
-			game.getUI().getActor("Info", InfoGroupUI.class).setInfo("");
+			game.getUI().getActor("Info", InfoGroupUI.class).clearInfo();
 			game.getUI().getActor("Info", InfoGroupUI.class).setVisible(false);
 			Gdx.input.setInputProcessor(game.getPlayerController().set());
 			tilemap.setState(ActionState.PLAYER);
@@ -102,10 +103,9 @@ public class CursorController extends InputAdapter {
 	}
 
 	private void showTileInfo() {
-		String info = tilemap.getTileInfo(cursor.getPosition());
-		if (info == null) info = "Void";
-		ui.getActor("Info", InfoGroupUI.class)
-		.setInfo(info);
+		Array<String> info = tilemap.getTileInfo(cursor.getPosition());
+		if (info.size == 0) info.add("Void");
+		ui.getActor("Info", InfoGroupUI.class).setInfo(info);
 	}
 
 	public CursorController set(Vector2 position) {

@@ -60,6 +60,18 @@ public abstract class AssetsManager {
 		}
 		return textures;
 	}
+	
+	public static TextureRegion[] getAnimated(String name, String type, String align) {
+		Array<String> parts = DatabaseManager.getAnimationData(name, type, align);
+		TextureRegion[] textures = new TextureRegion[2];
+		Texture tileset = assets.get("maps/tilesets/" + parts.get(0) + ".png", Texture.class);
+		for (int i = 0; i < textures.length; i++) {
+			textures[i] = new TextureRegion(tileset,
+					Integer.valueOf(parts.get(1)) * 16 + (i * (tileset.getWidth() / 2)),
+					Integer.valueOf(parts.get(2)) * 16, 16, 16);
+		}
+		return textures;
+	}
 
 	public static void unloadAssets() {
 		assets.dispose();

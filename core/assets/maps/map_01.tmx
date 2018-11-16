@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="16" height="16" tilewidth="16" tileheight="16" infinite="0" nextobjectid="34">
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="16" height="16" tilewidth="16" tileheight="16" infinite="0" nextobjectid="36">
  <tileset firstgid="1" source="patterns/Floor.tsx"/>
  <tileset firstgid="820" source="patterns/Wall.tsx"/>
  <tileset firstgid="1840" source="patterns/Decor.tsx"/>
@@ -15,18 +15,18 @@
 960,148,149,149,149,149,149,150,960,148,149,149,149,149,150,960,
 960,148,149,149,149,149,149,150,960,148,149,149,149,149,150,960,
 960,148,149,149,149,149,149,150,960,169,170,149,170,170,171,960,
-960,148,149,149,149,149,149,150,980,941,941,149,941,941,941,942,
-960,148,149,149,149,149,149,149,128,128,128,149,128,128,129,960,
+960,148,149,149,149,149,149,150,960,941,941,149,941,941,941,942,
+960,148,149,149,149,149,149,149,960,128,128,149,128,128,129,960,
+960,148,149,149,149,149,149,149,961,149,149,149,149,149,150,960,
 960,148,149,149,149,149,149,149,149,149,149,149,149,149,150,960,
-960,148,149,149,149,149,149,149,149,149,149,149,149,149,150,960,
-960,169,170,170,170,170,170,170,170,170,170,170,170,170,171,960,
+960,169,170,170,170,170,170,170,964,149,149,170,170,170,171,960,
 980,941,941,941,941,941,941,941,941,941,941,941,941,941,941,982
 </data>
  </layer>
- <layer name="PropLayer" width="16" height="16">
+ <layer name="PropLayer" width="16" height="16" locked="1">
   <data encoding="csv">
-0,0,0,0,0,0,1968,0,0,0,0,0,1968,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,1942,0,1968,0,0,0,0,0,1968,0,0,0,
+0,0,0,0,0,0,1904,1908,1909,1987,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,1954,1953,0,0,0,
 0,0,0,0,0,1954,0,0,0,0,0,0,0,0,0,0,
 0,0,0,1952,1953,0,0,0,0,0,0,0,0,0,0,0,
@@ -34,16 +34,16 @@
 0,0,0,0,1954,0,1954,0,0,1985,1986,0,0,0,2021,0,
 0,0,0,2000,2001,2001,2001,2002,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,1952,1953,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,1954,0,0,
-0,0,1952,1953,1954,0,0,0,0,0,0,0,1953,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,1952,1953,1954,0,0,0,0,0,0,0,0,1954,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,1953,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer name="MarkLayer" width="16" height="16" opacity="0.6">
+ <layer name="MarkLayer" width="16" height="16" locked="1" opacity="0.6">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -67,6 +67,7 @@
   <object id="13" name="Spawn.PlayerSpawn" x="176" y="32" width="16" height="16"/>
   <object id="15" name="Switch.Door" x="176" y="160" width="16" height="16">
    <properties>
+    <property name="align" value="H"/>
     <property name="name" value="Metal Door"/>
    </properties>
   </object>
@@ -79,9 +80,15 @@
   <object id="20" name="Char.Pirate" x="96" y="128" width="16" height="16"/>
   <object id="21" name="Trigger.OnEnter" x="176" y="64" width="32" height="16"/>
   <object id="25" name="Trigger.OnExit" x="144" y="64" width="32" height="16"/>
-  <object id="30" name="Char.Soldier" x="64" y="192" width="16" height="16"/>
-  <object id="31" name="Char.Soldier" x="208" y="176" width="16" height="16"/>
+  <object id="30" name="Char.Squire" x="64" y="192" width="16" height="16"/>
+  <object id="31" name="Char.Soldier" x="208" y="192" width="16" height="16"/>
   <object id="32" name="Char.Soldier" x="64" y="96" width="16" height="16"/>
   <object id="33" name="Char.Soldier" x="32" y="16" width="16" height="16"/>
+  <object id="35" name="Switch.Door" x="128" y="208" width="16" height="16">
+   <properties>
+    <property name="align" value="V"/>
+    <property name="name" value="Metal Door"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

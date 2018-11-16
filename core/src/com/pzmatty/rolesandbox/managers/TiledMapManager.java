@@ -263,8 +263,9 @@ public class TiledMapManager {
 	}
 	
 	public void createDoor(Rectangle rectangle, MapProperties properties) {
+		String align = properties.get("align", String.class);
 		switchs.add(new DoorSwitch(
-				AssetsManager.getAnimated(properties.get("name", String.class), "SWITCH"),
+				AssetsManager.getAnimated(properties.get("name", String.class), "SWITCH", align),
 				rectToWorld(rectangle),
 				true, properties.get("name", String.class))
 				);
@@ -344,33 +345,39 @@ public class TiledMapManager {
 		return false;
 	}
 
-	public String getTileInfo(Vector2 position) {
+	public Array<String> getTileInfo(Vector2 position) {
+		Array<String> info = new Array<>();
 		for (Character other : characters) {
 			if (other.getPosition().equals(position)) {
-				return other.getName();
+				info.add(other.getName());
+				break;
 			}
 		}
 		for (StaticEntity item : items) {
 			if (item.getPosition().equals(position)) {
-				return item.getName();
+				info.add(item.getName());
+				break;
 			}
 		}
 		for (Entity prop : props) {
 			if (prop.getPosition().equals(position)) {
-				return prop.getName();
+				info.add(prop.getName());
+				break;
 			}
 		}
 		for (ISwitch other : switchs) {
 			if (((GameObject) other).getPosition().equals(position)) {
-				return ((Entity)other).getName();
+				info.add(((Entity) other).getName());
+				break;
 			}
 		}
 		for (StaticEntity tile : tiles) {
 			if (tile.getPosition().equals(position)) {
-				return tile.getName();
+				info.add(tile.getName());
+				break;
 			}
 		}
-		return null;
+		return info;
 	}
 
 	public void triggerOnEnter(Vector2 position) {

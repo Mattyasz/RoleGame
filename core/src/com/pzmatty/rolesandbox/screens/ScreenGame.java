@@ -73,7 +73,7 @@ public class ScreenGame extends ScreenAdapter {
 				table.setWidth(Gdx.graphics.getWidth());
 				table.top();
 				
-				table.add(getActor("Info", InfoGroupUI.class)).right().width(200).height(80).expandX();
+				table.add(getActor("Info", InfoGroupUI.class)).right().width(200).expandX();
 				stage.addActor(table);
 				
 //				addActor(new Label("", skin, "default"), "InfoCursor");

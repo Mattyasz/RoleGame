@@ -14,19 +14,13 @@ public abstract class ScreenBase extends ScreenAdapter {
 	}
 
 	@Override
-	public void render(float delta) {
-		super.render(delta);
+	public void dispose() {
+		super.dispose();
 	}
 
-	@Override
-	public void resize(int width, int height) {
-		super.resize(width, height);
-	}
+	public abstract AssetManager getAssets();
 
-	@Override
-	public void show() {
-		super.show();
-	}
+	public abstract SpriteBatch getBatch();
 
 	@Override
 	public void hide() {
@@ -39,17 +33,23 @@ public abstract class ScreenBase extends ScreenAdapter {
 	}
 
 	@Override
+	public void render(float delta) {
+		super.render(delta);
+	}
+
+	@Override
+	public void resize(int width, int height) {
+		super.resize(width, height);
+	}
+
+	@Override
 	public void resume() {
 		super.resume();
 	}
 
 	@Override
-	public void dispose() {
-		super.dispose();
+	public void show() {
+		super.show();
 	}
-
-	public abstract AssetManager getAssets();
-
-	public abstract SpriteBatch getBatch();
 
 }

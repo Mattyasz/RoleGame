@@ -16,14 +16,18 @@ public class InfoGroupUI extends Window {
 		this.setVisible(false);
 		this.group = new VerticalGroup();
 		this.group.pad(10.0f);
-		//this.addActor(group);
+		// this.addActor(group);
 		this.add(group);
 	}
-	
-//	public String getInfo(int index) {
-//		return infoList.get(index);
-//	}
-	
+
+	// public String getInfo(int index) {
+	// return infoList.get(index);
+	// }
+
+	public void clearInfo() {
+		this.group.clear();
+	}
+
 	public void setInfo(Array<String> list) {
 		clearInfo();
 		for (String name : list) {
@@ -32,9 +36,5 @@ public class InfoGroupUI extends Window {
 			this.group.addActor(label);
 		}
 	}
-	
-	public void clearInfo() {
-		this.group.clear();
-	}
-	
+
 }

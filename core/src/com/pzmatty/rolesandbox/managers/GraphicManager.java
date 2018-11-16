@@ -25,7 +25,20 @@ public class GraphicManager {
 		configSprites();
 	}
 
+	public void addEntity(StaticEntity entity) {
+		entities.add(entity);
+	}
+
 	public void configSprites() {
+	}
+
+	public void dispose() {
+		if (hasShapeRender)
+			shape.dispose();
+	}
+
+	public OrthographicCamera getCamera() {
+		return camera;
 	}
 
 	public void render(float delta) {
@@ -47,23 +60,10 @@ public class GraphicManager {
 		}
 	}
 
-	public void addEntity(StaticEntity entity) {
-		entities.add(entity);
-	}
-
-	public OrthographicCamera getCamera() {
-		return camera;
-	}
-
 	public void resize(int width, int height) {
 		camera.viewportWidth = width;
 		camera.viewportHeight = height;
 		camera.update();
-	}
-
-	public void dispose() {
-		if (hasShapeRender)
-			shape.dispose();
 	}
 
 }

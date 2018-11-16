@@ -33,10 +33,71 @@ public class ScreenGame extends ScreenAdapter {
 		Gdx.input.setInputProcessor(controller);
 	}
 
+	private UIManager configUI() {
+		return new UIManager(game.getBatch(), false) {
+
+			@Override
+			public void configActors() {
+				Skin skin = AssetsManager.get(DatabaseManager.getConstant("SKIN_PATH"), Skin.class);
+
+				addActor(new InfoGroupUI(skin), "Info");
+
+				table.setFillParent(true);
+
+				table.setWidth(Gdx.graphics.getWidth());
+				table.top();
+
+				table.add(getActor("Info", InfoGroupUI.class)).right().width(200).expandX();
+				stage.addActor(table);
+
+				// addActor(new Label("", skin, "default"), "InfoCursor");
+				// List<String> varList = new List<>(skin);
+				//
+				// ScrollPane scrollOptions = new ScrollPane(options, skin);
+				// ScrollPane scrollVariables = new ScrollPane(varList, skin);
+				//
+				// table.setFillParent(true);
+				//
+				// table.setWidth(Gdx.graphics.getWidth());
+				// table.top();
+				//
+				// getActor("InfoCursor", Label.class).setWrap(true);
+				// options.align(Align.topLeft).pad(5);
+				// options.columnLeft();
+				//
+				// table.add();
+				// table.add(getActor("InfoCursor",
+				// Label.class)).expandX().left().fillX().top().pad(10);
+				// table.add(scrollVariables).right().width(120).fillY().top().pad(10).expandY().height(250);
+				// table.row().height(100);
+				// table.add(scrollOptions).bottom().fillX().fillY().pad(10).colspan(2);
+				//
+				// stage.addActor(table);
+			}
+
+		};
+	}
+
 	@Override
-	public void show() {
-		ui.configActors();
-		SoundManager.playMusic("MUSIC");
+	public void dispose() {
+		map.dispose();
+		ui.dispose();
+	}
+
+	public CursorController getCursorController() {
+		return cursor;
+	}
+
+	public PlayerController getPlayerController() {
+		return controller;
+	}
+
+	public TiledMapManager getTiledMap() {
+		return map;
+	}
+
+	public UIManager getUI() {
+		return ui;
 	}
 
 	@Override
@@ -54,69 +115,9 @@ public class ScreenGame extends ScreenAdapter {
 	}
 
 	@Override
-	public void dispose() {
-		map.dispose();
-		ui.dispose();
-	}
-
-	private UIManager configUI() {
-		return new UIManager(game.getBatch(), false) {
-
-			@Override
-			public void configActors() {
-				Skin skin = AssetsManager.get(DatabaseManager.getConstant("SKIN_PATH"), Skin.class);
-
-				addActor(new InfoGroupUI(skin), "Info");
-				
-				table.setFillParent(true);
-				
-				table.setWidth(Gdx.graphics.getWidth());
-				table.top();
-				
-				table.add(getActor("Info", InfoGroupUI.class)).right().width(200).expandX();
-				stage.addActor(table);
-				
-//				addActor(new Label("", skin, "default"), "InfoCursor");
-//				 List<String> varList = new List<>(skin);
-//
-//				 ScrollPane scrollOptions = new ScrollPane(options, skin);
-//				 ScrollPane scrollVariables = new ScrollPane(varList, skin);
-//
-//				table.setFillParent(true);
-//
-//				table.setWidth(Gdx.graphics.getWidth());
-//				table.top();
-//
-//				getActor("InfoCursor", Label.class).setWrap(true);
-//				options.align(Align.topLeft).pad(5);
-//				options.columnLeft();
-//
-//				table.add();
-//				table.add(getActor("InfoCursor", Label.class)).expandX().left().fillX().top().pad(10);
-//				table.add(scrollVariables).right().width(120).fillY().top().pad(10).expandY().height(250);
-//				table.row().height(100);
-//				table.add(scrollOptions).bottom().fillX().fillY().pad(10).colspan(2);
-//
-//				stage.addActor(table);
-			}
-
-		};
-	}
-
-	public TiledMapManager getTiledMap() {
-		return map;
-	}
-
-	public UIManager getUI() {
-		return ui;
-	}
-
-	public PlayerController getPlayerController() {
-		return controller;
-	}
-
-	public CursorController getCursorController() {
-		return cursor;
+	public void show() {
+		ui.configActors();
+		SoundManager.playMusic("MUSIC");
 	}
 
 }

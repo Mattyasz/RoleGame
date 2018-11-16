@@ -2,7 +2,6 @@ package com.pzmatty.rolesandbox.managers;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -33,34 +32,16 @@ public class UIManager {
 		stage.setDebugAll(debug);
 	}
 
+	public void addActor(Actor actor, String name) {
+		actor.setName(name);
+		list.add(actor);
+	}
+
 	public void configActors() {
-	}
-
-	public Table getTable() {
-		return table;
-	}
-
-	public Stage getStage() {
-		return stage;
-	}
-
-	public void render(float delta) {
-		stage.act(delta);
-		stage.draw();
-	}
-
-	public void resize(int width, int height) {
-		stage.getViewport().update(width, height, true);
-		stage.getCamera().update();
 	}
 
 	public void dispose() {
 		stage.dispose();
-	}
-
-	public void addActor(Actor actor, String name) {
-		actor.setName(name);
-		list.add(actor);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -79,6 +60,24 @@ public class UIManager {
 		// }
 		// }
 		// return null;
+	}
+
+	public Stage getStage() {
+		return stage;
+	}
+
+	public Table getTable() {
+		return table;
+	}
+
+	public void render(float delta) {
+		stage.act(delta);
+		stage.draw();
+	}
+
+	public void resize(int width, int height) {
+		stage.getViewport().update(width, height, true);
+		stage.getCamera().update();
 	}
 
 }

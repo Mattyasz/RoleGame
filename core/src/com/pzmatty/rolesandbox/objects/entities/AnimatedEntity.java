@@ -14,8 +14,7 @@ public class AnimatedEntity extends Entity {
 	private boolean animate;
 	private int index;
 
-	public AnimatedEntity(TextureRegion[] textures, Rectangle rect, boolean block, boolean animate,
-			String name) {
+	public AnimatedEntity(TextureRegion[] textures, Rectangle rect, boolean block, boolean animate, String name) {
 		super(rect, block, name);
 		this.animate = animate;
 		this.index = 0;
@@ -36,15 +35,15 @@ public class AnimatedEntity extends Entity {
 		}
 	}
 
+	public void setAnimationKey(int index) {
+		this.index = index;
+	}
+
 	public void toogleAnimationKey() {
 		if (index == 1)
 			index = 0;
 		else
 			index = 1;
-	}
-
-	public void setAnimationKey(int index) {
-		this.index = index;
 	}
 
 }

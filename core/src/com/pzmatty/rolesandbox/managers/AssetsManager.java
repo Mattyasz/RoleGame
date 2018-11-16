@@ -17,6 +17,34 @@ public abstract class AssetsManager {
 	private static final String TAG = AssetsManager.class.getSimpleName();
 	private static AssetManager assets = new AssetManager();
 
+	public static <T> T get(String fileName, Class<T> type) {
+		return assets.get(fileName, type);
+	}
+
+	public static TextureRegion[] getAnimated(String name, String type) {
+		Array<String> parts = DatabaseManager.getAnimationData(name, type);
+		TextureRegion[] textures = new TextureRegion[2];
+		Texture tileset = assets.get("maps/tilesets/" + parts.get(0) + ".png", Texture.class);
+		for (int i = 0; i < textures.length; i++) {
+			textures[i] = new TextureRegion(tileset,
+					Integer.valueOf(parts.get(1)) * 16 + (i * (tileset.getWidth() / 2)),
+					Integer.valueOf(parts.get(2)) * 16, 16, 16);
+		}
+		return textures;
+	}
+
+	public static TextureRegion[] getAnimated(String name, String type, String align) {
+		Array<String> parts = DatabaseManager.getAnimationData(name, type, align);
+		TextureRegion[] textures = new TextureRegion[2];
+		Texture tileset = assets.get("maps/tilesets/" + parts.get(0) + ".png", Texture.class);
+		for (int i = 0; i < textures.length; i++) {
+			textures[i] = new TextureRegion(tileset,
+					Integer.valueOf(parts.get(1)) * 16 + (i * (tileset.getWidth() / 2)),
+					Integer.valueOf(parts.get(2)) * 16, 16, 16);
+		}
+		return textures;
+	}
+
 	public static void loadAssets() {
 		// LOAD LOADERS
 		assets.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
@@ -45,40 +73,12 @@ public abstract class AssetsManager {
 		assets.finishLoading();
 	}
 
-	public static <T> T get(String fileName, Class<T> type) {
-		return assets.get(fileName, type);
-	}
-
-	public static TextureRegion[] getAnimated(String name, String type) {
-		Array<String> parts = DatabaseManager.getAnimationData(name, type);
-		TextureRegion[] textures = new TextureRegion[2];
-		Texture tileset = assets.get("maps/tilesets/" + parts.get(0) + ".png", Texture.class);
-		for (int i = 0; i < textures.length; i++) {
-			textures[i] = new TextureRegion(tileset,
-					Integer.valueOf(parts.get(1)) * 16 + (i * (tileset.getWidth() / 2)),
-					Integer.valueOf(parts.get(2)) * 16, 16, 16);
-		}
-		return textures;
-	}
-	
-	public static TextureRegion[] getAnimated(String name, String type, String align) {
-		Array<String> parts = DatabaseManager.getAnimationData(name, type, align);
-		TextureRegion[] textures = new TextureRegion[2];
-		Texture tileset = assets.get("maps/tilesets/" + parts.get(0) + ".png", Texture.class);
-		for (int i = 0; i < textures.length; i++) {
-			textures[i] = new TextureRegion(tileset,
-					Integer.valueOf(parts.get(1)) * 16 + (i * (tileset.getWidth() / 2)),
-					Integer.valueOf(parts.get(2)) * 16, 16, 16);
-		}
-		return textures;
+	public static void unload(String fileName) {
+		assets.unload(fileName);
 	}
 
 	public static void unloadAssets() {
 		assets.dispose();
-	}
-	
-	public static void unload(String fileName) {
-		assets.unload(fileName);
 	}
 
 }

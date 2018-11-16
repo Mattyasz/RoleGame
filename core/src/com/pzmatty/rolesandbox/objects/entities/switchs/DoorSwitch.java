@@ -14,12 +14,6 @@ public class DoorSwitch extends AnimatedEntity implements ISwitch {
 	}
 
 	@Override
-	public void toogle() {
-		block = !block;
-		act();
-	}
-
-	@Override
 	public void act() {
 		if (block) {
 			setAnimationKey(0);
@@ -27,6 +21,12 @@ public class DoorSwitch extends AnimatedEntity implements ISwitch {
 			setAnimationKey(1);
 			SoundManager.playSound("DOOR_OPEN");
 		}
+	}
+
+	@Override
+	public void toogle() {
+		block = !block;
+		act();
 	}
 
 }

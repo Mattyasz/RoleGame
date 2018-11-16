@@ -29,16 +29,6 @@ public class PlayerController extends InputAdapter {
 		this.state = PlayerState.MOVEMENT;
 	}
 
-	@Override
-	public boolean keyDown(int keycode) {
-		if (state.equals(PlayerState.MOVEMENT)) {
-			evaluateMap(keycode);
-			return true;
-		} else {
-			return true;
-		}
-	}
-
 	public void evaluateMap(int keycode) {
 		int x = 0, y = 0;
 
@@ -106,6 +96,16 @@ public class PlayerController extends InputAdapter {
 					SoundManager.playSound("STEP");
 				}
 			}
+		}
+	}
+
+	@Override
+	public boolean keyDown(int keycode) {
+		if (state.equals(PlayerState.MOVEMENT)) {
+			evaluateMap(keycode);
+			return true;
+		} else {
+			return true;
 		}
 	}
 

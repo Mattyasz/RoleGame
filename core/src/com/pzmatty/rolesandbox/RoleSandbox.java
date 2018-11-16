@@ -38,13 +38,6 @@ public class RoleSandbox extends Game {
 		DatabaseManager.disconnect();
 	}
 
-	public void setScreen(ScreenState screen) {
-		if (screen.equals(ScreenState.GAME)) {
-			setState(ScreenState.GAME);
-			setScreen(screenGame);
-		}
-	}
-
 	public SpriteBatch getBatch() {
 		return batch;
 	}
@@ -58,6 +51,13 @@ public class RoleSandbox extends Game {
 
 	public ScreenState getState() {
 		return state;
+	}
+
+	public void setScreen(ScreenState screen) {
+		if (screen.equals(ScreenState.GAME)) {
+			setState(ScreenState.GAME);
+			setScreen(screenGame);
+		}
 	}
 
 	public void setState(ScreenState state) {

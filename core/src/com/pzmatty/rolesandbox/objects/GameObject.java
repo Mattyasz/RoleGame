@@ -13,21 +13,16 @@ public abstract class GameObject {
 		this.rect = rect;
 	}
 
-	public void setPosition(Vector2 position) {
-		rect.setPosition(position);
-	}
-
-	public void translate(Vector2 position) {
-		rect.x += position.x;
-		rect.y += position.y;
+	public Vector2 getMovedPosition(int x, int y) {
+		return getPosition().cpy().add(x, y);
 	}
 
 	public Vector2 getPosition() {
 		return new Vector2(rect.x, rect.y);
 	}
 
-	public Vector2 getMovedPosition(int x, int y) {
-		return getPosition().cpy().add(x, y);
+	public Rectangle getRect() {
+		return rect;
 	}
 
 	public boolean isBlock() {
@@ -38,8 +33,13 @@ public abstract class GameObject {
 		this.block = block;
 	}
 
-	public Rectangle getRect() {
-		return rect;
+	public void setPosition(Vector2 position) {
+		rect.setPosition(position);
+	}
+
+	public void translate(Vector2 position) {
+		rect.x += position.x;
+		rect.y += position.y;
 	}
 
 }

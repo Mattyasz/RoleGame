@@ -2,6 +2,8 @@ package com.pzmatty.rolesandbox.managers;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -31,6 +33,12 @@ public abstract class AssetsManager {
 				break;
 			case "TEXTURE":
 				assets.load(asset[1], Texture.class);
+				break;
+			case "SOUND":
+				assets.load(asset[1], Sound.class);
+				break;
+			case "MUSIC":
+				assets.load(asset[1], Music.class);
 				break;
 			}
 		}

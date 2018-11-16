@@ -109,7 +109,7 @@ public class CursorController extends InputAdapter {
 	}
 
 	public CursorController set(Vector2 position) {
-		this.cursor.setPosition(position);
+		CursorController.getCursor().setPosition(position);
 		showTileInfo();
 		return this;
 	}

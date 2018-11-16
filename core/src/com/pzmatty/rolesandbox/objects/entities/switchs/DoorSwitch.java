@@ -2,6 +2,7 @@ package com.pzmatty.rolesandbox.objects.entities.switchs;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.pzmatty.rolesandbox.managers.SoundManager;
 import com.pzmatty.rolesandbox.objects.ISwitch;
 import com.pzmatty.rolesandbox.objects.entities.AnimatedEntity;
 
@@ -24,6 +25,7 @@ public class DoorSwitch extends AnimatedEntity implements ISwitch {
 			setAnimationKey(0);
 		} else {
 			setAnimationKey(1);
+			SoundManager.playSound("DOOR_OPEN");
 		}
 	}
 

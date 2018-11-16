@@ -9,6 +9,7 @@ import com.pzmatty.rolesandbox.controllers.CursorController;
 import com.pzmatty.rolesandbox.controllers.PlayerController;
 import com.pzmatty.rolesandbox.managers.AssetsManager;
 import com.pzmatty.rolesandbox.managers.DatabaseManager;
+import com.pzmatty.rolesandbox.managers.SoundManager;
 import com.pzmatty.rolesandbox.managers.TiledMapManager;
 import com.pzmatty.rolesandbox.managers.UIManager;
 import com.pzmatty.rolesandbox.ui.InfoGroupUI;
@@ -35,6 +36,7 @@ public class ScreenGame extends ScreenAdapter {
 	@Override
 	public void show() {
 		ui.configActors();
+		SoundManager.playMusic("MUSIC");
 	}
 
 	@Override

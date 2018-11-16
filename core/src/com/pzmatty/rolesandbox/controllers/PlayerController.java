@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Vector2;
+import com.pzmatty.rolesandbox.managers.SoundManager;
 import com.pzmatty.rolesandbox.managers.TiledMapManager;
 import com.pzmatty.rolesandbox.managers.TiledMapManager.ActionState;
 import com.pzmatty.rolesandbox.objects.entities.Entity;
@@ -102,6 +103,7 @@ public class PlayerController extends InputAdapter {
 					// Update the camera
 					tilemap.setCameraPosition(entity.getPosition());
 					tilemap.getCamera().update();
+					SoundManager.playSound("STEP");
 				}
 			}
 		}

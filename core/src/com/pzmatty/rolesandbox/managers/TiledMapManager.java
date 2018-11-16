@@ -362,7 +362,6 @@ public class TiledMapManager {
 		}
 		for (ISwitch other : switchs) {
 			if (((GameObject) other).getPosition().equals(position)) {
-				other.toogle();
 				return ((Entity)other).getName();
 			}
 		}

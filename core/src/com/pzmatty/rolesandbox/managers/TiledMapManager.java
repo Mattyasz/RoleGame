@@ -350,10 +350,9 @@ public class TiledMapManager {
 				return other.getName();
 			}
 		}
-		for (ISwitch other : switchs) {
-			if (((GameObject) other).getPosition().equals(position)) {
-				other.toogle();
-				return ((Entity)other).getName();
+		for (StaticEntity item : items) {
+			if (item.getPosition().equals(position)) {
+				return item.getName();
 			}
 		}
 		for (Entity prop : props) {
@@ -361,11 +360,18 @@ public class TiledMapManager {
 				return prop.getName();
 			}
 		}
-		for (StaticEntity item : items) {
-			if (item.getPosition().equals(position)) {
-				return item.getName();
+		for (ISwitch other : switchs) {
+			if (((GameObject) other).getPosition().equals(position)) {
+				other.toogle();
+				return ((Entity)other).getName();
 			}
-		} return null;
+		}
+		for (StaticEntity tile : tiles) {
+			if (tile.getPosition().equals(position)) {
+				return tile.getName();
+			}
+		}
+		return null;
 	}
 
 	public void triggerOnEnter(Vector2 position) {
@@ -404,7 +410,6 @@ public class TiledMapManager {
 	}
 	
 	public void dispose() {
-		AssetsManager.unload(DatabaseManager.getConstant(mapName));
 		map.dispose();
 		renderer.dispose();
 	}

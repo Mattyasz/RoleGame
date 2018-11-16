@@ -14,9 +14,9 @@ public class AnimatedEntity extends Entity {
 	private boolean animate;
 	private int index;
 
-	public AnimatedEntity(TextureRegion[] textures, Rectangle rect, boolean block, boolean animate, String type,
+	public AnimatedEntity(TextureRegion[] textures, Rectangle rect, boolean block, boolean animate,
 			String name) {
-		super(rect, block, type, name);
+		super(rect, block, name);
 		this.animate = animate;
 		this.index = 0;
 		animation = new Animation<>(0.498f, textures);

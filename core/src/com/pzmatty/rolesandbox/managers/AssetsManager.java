@@ -56,5 +56,9 @@ public abstract class AssetsManager {
 	public static void unloadAssets() {
 		assets.dispose();
 	}
+	
+	public static void unload(String fileName) {
+		assets.unload(fileName);
+	}
 
 }

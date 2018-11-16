@@ -7,12 +7,10 @@ public abstract class GameObject {
 
 	protected boolean block;
 	protected Rectangle rect;
-	private final String type;
 
-	public GameObject(Rectangle rect, boolean block, String type) {
+	public GameObject(Rectangle rect, boolean block) {
 		this.block = block;
 		this.rect = rect;
-		this.type = type;
 	}
 
 	public void setPosition(Vector2 position) {
@@ -38,10 +36,6 @@ public abstract class GameObject {
 
 	public void setBlock(boolean block) {
 		this.block = block;
-	}
-
-	public String getType() {
-		return type;
 	}
 
 	public Rectangle getRect() {

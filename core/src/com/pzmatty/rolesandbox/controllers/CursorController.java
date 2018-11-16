@@ -3,19 +3,26 @@ package com.pzmatty.rolesandbox.controllers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.pzmatty.rolesandbox.managers.AssetsManager;
+import com.pzmatty.rolesandbox.managers.DatabaseManager;
 import com.pzmatty.rolesandbox.managers.TiledMapManager;
 import com.pzmatty.rolesandbox.managers.TiledMapManager.ActionState;
 import com.pzmatty.rolesandbox.managers.UIManager;
-import com.pzmatty.rolesandbox.objects.GameObjectFactory;
-import com.pzmatty.rolesandbox.objects.entities.Entity;
+import com.pzmatty.rolesandbox.objects.entities.StaticEntity;
 import com.pzmatty.rolesandbox.screens.ScreenGame;
 import com.pzmatty.rolesandbox.ui.InfoGroupUI;
 
 public class CursorController extends InputAdapter {
 
 	private TiledMapManager tilemap;
-	private Entity entity;
+	private static StaticEntity cursor = new StaticEntity(
+			new TextureRegion(AssetsManager.get(DatabaseManager.getConstant("CURSOR"), Texture.class)),
+			new Rectangle(new Rectangle(0, 0, 16 * TiledMapManager.WORLD_TO_SCREEN,
+					16 * TiledMapManager.WORLD_TO_SCREEN)), false, "Cursor");;
 	private ScreenGame game;
 	private UIManager ui;
 
@@ -23,7 +30,10 @@ public class CursorController extends InputAdapter {
 		this.game = game;
 		this.tilemap = game.getTiledMap();
 		this.ui = game.getUI();
-		this.entity = GameObjectFactory.getCursor();
+	}
+	
+	public static StaticEntity getCursor() {
+		return cursor;
 	}
 
 	@Override
@@ -80,8 +90,8 @@ public class CursorController extends InputAdapter {
 		}
 
 		if (x != 0 || y != 0) {
-			entity.translate(new Vector2(x, y));
-			tilemap.setCameraPosition(entity.getPosition());
+			cursor.translate(new Vector2(x, y));
+			tilemap.setCameraPosition(cursor.getPosition());
 			tilemap.getCamera().update();
 		}
 
@@ -92,14 +102,14 @@ public class CursorController extends InputAdapter {
 	}
 
 	private void showTileInfo() {
-		String info = tilemap.getTileInfo(entity.getPosition());
+		String info = tilemap.getTileInfo(cursor.getPosition());
 		if (info == null) info = "Void";
 		ui.getActor("Info", InfoGroupUI.class)
 		.setInfo(info);
 	}
 
 	public CursorController set(Vector2 position) {
-		this.entity.setPosition(position);
+		this.cursor.setPosition(position);
 		showTileInfo();
 		return this;
 	}

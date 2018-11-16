@@ -8,7 +8,7 @@ import com.pzmatty.rolesandbox.objects.entities.AnimatedEntity;
 public class DoorSwitch extends AnimatedEntity implements ISwitch {
 
 	public DoorSwitch(TextureRegion[] textures, Rectangle rect, boolean block, String name) {
-		super(textures, new Rectangle(rect.x, rect.y, rect.width, rect.height), true, false, "SWITCH", name);
+		super(textures, new Rectangle(rect.x, rect.y, rect.width, rect.height), true, false, name);
 		act();
 	}
 

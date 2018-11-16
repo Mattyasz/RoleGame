@@ -35,7 +35,6 @@ public class ScreenGame extends ScreenAdapter {
 	@Override
 	public void show() {
 		ui.configActors();
-		map.create();
 	}
 
 	@Override

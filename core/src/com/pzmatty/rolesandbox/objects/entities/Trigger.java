@@ -8,8 +8,8 @@ public class Trigger extends GameObject {
 
 	private final String event;
 
-	public Trigger(Rectangle rect, boolean block, String type, String event) {
-		super(rect, block, type);
+	public Trigger(Rectangle rect, String event) {
+		super(rect, false);
 		this.event = event;
 	}
 

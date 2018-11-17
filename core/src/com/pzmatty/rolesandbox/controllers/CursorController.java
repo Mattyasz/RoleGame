@@ -5,8 +5,6 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -18,6 +16,7 @@ import com.pzmatty.rolesandbox.managers.UIManager;
 import com.pzmatty.rolesandbox.objects.entities.StaticEntity;
 import com.pzmatty.rolesandbox.screens.ScreenGame;
 import com.pzmatty.rolesandbox.ui.InfoGroupUI;
+import com.pzmatty.rolesandbox.ui.InfoMonsterUI;
 
 public class CursorController extends InputAdapter {
 
@@ -90,22 +89,17 @@ public class CursorController extends InputAdapter {
 		case Keys.ESCAPE:
 			game.getUI().getActor("Info", InfoGroupUI.class).clearInfo();
 			game.getUI().getActor("Info", InfoGroupUI.class).setVisible(false);
+			game.getUI().getActor("Monster", InfoMonsterUI.class).clearInfo();
+			game.getUI().getActor("Monster", InfoMonsterUI.class).setVisible(false);
 			Gdx.input.setInputProcessor(game.getPlayerController().set());
 			tilemap.setState(ActionState.PLAYER);
 			break;
 		}
 
 		if (x != 0 || y != 0) {
-			TiledMapTileLayer layer = (TiledMapTileLayer) tilemap.getMap().getLayers().get(0);
-			float cameraMinX = tilemap.getViewport().getWorldWidth() * 0.5f;
-			float cameraMinY = tilemap.getViewport().getWorldHeight() * 0.5f;
-			float cameraMaxX = layer.getWidth() * layer.getTileWidth() - cameraMinX;
-			float cameraMaxY = layer.getHeight() * layer.getTileHeight() - cameraMinY;
-
 			cursor.translate(new Vector2(x, y));
-			tilemap.setCameraPosition(new Vector2(MathUtils.clamp(cursor.getPosition().x, cameraMinX, cameraMaxX),
-					MathUtils.clamp(cursor.getPosition().y, cameraMinY, cameraMaxY)));
-			tilemap.getCamera().update();
+ 			tilemap.setCameraPosition(cursor.getPosition());
+ 			tilemap.getCamera().update();
 		}
 
 		if (keycode != Keys.ESCAPE)
@@ -122,9 +116,18 @@ public class CursorController extends InputAdapter {
 
 	private void showTileInfo() {
 		Array<String> info = tilemap.getTileInfo(cursor.getPosition());
-		if (info.size == 0)
-			info.add("Void");
 		ui.getActor("Info", InfoGroupUI.class).setInfo(info);
+		
+		Array<String> monster = tilemap.getMonsterInfo(cursor.getPosition());
+		if (monster != null ) {
+			ui.getActor("Monster", InfoMonsterUI.class).setInfo(monster);
+			ui.getActor("Monster", InfoMonsterUI.class).show();
+		} else {
+			ui.getActor("Monster", InfoMonsterUI.class).clearInfo();
+			ui.getActor("Monster", InfoMonsterUI.class).hide();
+			if (info.size == 0)
+				info.add("Void");
+		}
 	}
 
 }

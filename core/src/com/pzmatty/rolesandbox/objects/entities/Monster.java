@@ -7,128 +7,87 @@ import com.badlogic.gdx.utils.Array;
 public class Monster extends AnimatedEntity {
 
 	// Monster stats
-	private String name;
-	private String race;
-	private String family;
-	private int strength;
-	private int dextery;
-	private int constitution;
-	private int wisdom;
-	private int charisma;
-	private int baseHp;
+	private final int strength;
+	private final int dextery;
+	private final int constitution;
+	private final int intelligence;
+	private final int wisdom;
+	private final int charisma;
+	private final int baseHp;
+	private final String race;
+	private final String family;
+
+	// Monster properties
 	private int hp;
 
-	public Monster(TextureRegion[] textures, Rectangle rect, boolean block, boolean animate, String name) {
-		super(textures, rect, block, animate, name);
+	public Monster(TextureRegion[] textures, Rectangle rect, boolean block, String name, Array<String> stats) {
+		super(textures, rect, block, true, name);
+		this.strength = Integer.parseInt(stats.get(0));
+		this.dextery = Integer.parseInt(stats.get(1));
+		this.intelligence = Integer.parseInt(stats.get(2));
+		this.constitution = Integer.parseInt(stats.get(3));
+		this.wisdom = Integer.parseInt(stats.get(4));
+		this.charisma = Integer.parseInt(stats.get(5));
+		this.baseHp = Integer.parseInt(stats.get(6));
+		this.family = stats.get(7);
+		this.race = stats.get(8);
+
+		this.hp = baseHp;
 	}
 
-	public int getBaseHp() {
-		return baseHp;
-	}
-
-	public int getCharisma() {
-		return charisma;
-	}
-
-	public int getConstitution() {
-		return constitution;
-	}
-
-	public int getDextery() {
-		return dextery;
-	}
-
-	public String getFamily() {
-		return family;
+	public Array<String> getProperties() {
+		Array<String> list = new Array<>();
+		list.add("Name: " + name);
+		list.add("HP: " + hp + "/" + baseHp);
+		list.add("Race: " + race);
+		list.add("Family: " + family);
+		list.add("Strength: " + strength);
+		list.add("Dexterity: " + dextery);
+		list.add("Intelligence: " + intelligence);
+		list.add("Constitution: " + constitution);
+		list.add("Wisdom: " + wisdom);
+		list.add("Charisma: " + charisma);
+		return list;
 	}
 
 	public int getHp() {
 		return hp;
 	}
 
-	@Override
-	public String getName() {
-		return name;
-	}
-
-	public Array<String> getProperties() {
-		Array<String> list = new Array<>();
-		list.add("Name: " + name);
-		list.add("Race: " + race);
-		list.add("Family: " + family);
-		list.add("Strength: " + strength);
-		list.add("Dextery: " + dextery);
-		list.add("Constitution: " + constitution);
-		list.add("Wisdom: " + wisdom);
-		list.add("Charisma: " + charisma);
-		list.add("HP: " + baseHp);
-		return list;
-	}
-
-	public String getRace() {
-		return race;
+	public void setHp(int hp) {
+		this.hp = hp;
 	}
 
 	public int getStrength() {
 		return strength;
 	}
 
+	public int getDextery() {
+		return dextery;
+	}
+
+	public int getConstitution() {
+		return constitution;
+	}
+
 	public int getWisdom() {
 		return wisdom;
 	}
 
-	public void setBaseHp(int baseHp) {
-		this.baseHp = baseHp;
+	public int getCharisma() {
+		return charisma;
 	}
 
-	public void setCharisma(int charisma) {
-		this.charisma = charisma;
+	public int getBaseHp() {
+		return baseHp;
 	}
 
-	public void setConstitution(int constitution) {
-		this.constitution = constitution;
+	public String getRace() {
+		return race;
 	}
 
-	public void setDextery(int dextery) {
-		this.dextery = dextery;
-	}
-
-	public void setFamily(String family) {
-		this.family = family;
-	}
-
-	public void setHp(int hp) {
-		this.hp = hp;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public void setProperties(String name, String race, String family, int strength, int dextery, int constitution,
-			int wisdom, int charisma, int baseHp) {
-		this.name = name;
-		this.race = race;
-		this.family = family;
-		this.strength = strength;
-		this.dextery = dextery;
-		this.constitution = constitution;
-		this.wisdom = wisdom;
-		this.charisma = charisma;
-		this.baseHp = baseHp;
-		this.hp = baseHp;
-	}
-
-	public void setRace(String race) {
-		this.race = race;
-	}
-
-	public void setStrength(int strength) {
-		this.strength = strength;
-	}
-
-	public void setWisdom(int wisdom) {
-		this.wisdom = wisdom;
+	public String getFamily() {
+		return family;
 	}
 
 }

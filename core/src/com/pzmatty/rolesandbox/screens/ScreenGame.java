@@ -13,6 +13,7 @@ import com.pzmatty.rolesandbox.managers.SoundManager;
 import com.pzmatty.rolesandbox.managers.TiledMapManager;
 import com.pzmatty.rolesandbox.managers.UIManager;
 import com.pzmatty.rolesandbox.ui.InfoGroupUI;
+import com.pzmatty.rolesandbox.ui.InfoMonsterUI;
 
 public class ScreenGame extends ScreenAdapter {
 
@@ -41,13 +42,16 @@ public class ScreenGame extends ScreenAdapter {
 				Skin skin = AssetsManager.get(DatabaseManager.getConstant("SKIN_PATH"), Skin.class);
 
 				addActor(new InfoGroupUI(skin), "Info");
+				addActor(new InfoMonsterUI(skin), "Monster");
 
 				table.setFillParent(true);
 
 				table.setWidth(Gdx.graphics.getWidth());
 				table.top();
 
-				table.add(getActor("Info", InfoGroupUI.class)).right().width(200).expandX();
+				table.add(getActor("Info", InfoGroupUI.class)).right().width(200).expandX().padTop(10);
+				table.row();
+				table.add(getActor("Monster", InfoMonsterUI.class)).right().width(200).expandX().padTop(10);
 				stage.addActor(table);
 
 				// addActor(new Label("", skin, "default"), "InfoCursor");

@@ -19,9 +19,11 @@ public abstract class DatabaseManager {
 	private static final String STR_CONSTANT = "SELECT c.value FROM constants c WHERE c.name = ?";
 	private static final String STR_MON_VAL = "SELECT m.? FROM monsters m WHERE m.char_name = ?";
 	private static final String STR_ANIM_MON = "select a.tileset, a.x, a.y from animations a, monsters m where a.id = m.animation and m.name = ?";
+	private static final String STR_ANIM_CHAR = "select a.tileset, a.x, a.y from animations a, characters c where a.id = c.animation and c.name = ?";
 	private static final String STR_ANIM_SWITCH = "select a.tileset, a.x, a.y from animations a, switchs s where a.id = s.animation*V1* and s.name = ?";
 	private static final String STR_ASSETS_PATH = "select c.format, c.value from constants c where c.format != 'GAME'";
-	private static final String STR_CHAR_STATS = "select chr.name, chr.strength, chr.dexterity, chr.constitution, chr.intelligence, chr.wisdom, chr.charisma, cls.hp, rac.name, cls.damage from characters chr, races rac, classes cls where rac.id = chr.race and cls.id = chr.class and chr.name = ?";
+	private static final String STR_CHAR_STATS = "select rac.name, chr.strength, chr.dexterity, chr.constitution, chr.intelligence, chr.wisdom, chr.charisma, cls.hp, cls.damage from characters chr, races rac, classes cls where rac.id = chr.race and cls.id = chr.class and chr.name = ?";
+	private static final String STR_MON_STATS = "select mon.strength, mon.dexterity, mon.constitution, mon.intelligence, mon.wisdom, mon.charisma, mon.hp, mon.family, rac.name from monsters mon, races rac where rac.id = mon.race and mon.name = ?";
 
 	public static void connect() {
 		try {
@@ -45,6 +47,8 @@ public abstract class DatabaseManager {
 		try {
 			String str = null;
 			if (type.equals("CHAR")) {
+				str = STR_ANIM_CHAR;
+			} else if (type.equals("MON")) {
 				str = STR_ANIM_MON;
 			} else if (type.equals("SWITCH")) {
 				str = STR_ANIM_SWITCH;
@@ -141,6 +145,22 @@ public abstract class DatabaseManager {
 			stm.setString(1, name);
 			ResultSet rs = stm.executeQuery();
 			for (int i = 1; i <= 10; i++) {
+				list.add(rs.getString(i));
+			}
+			return list;
+		} catch (SQLException e) {
+			Gdx.app.log(TAG, "Error - " + e.getMessage());
+			return null;
+		}
+	}
+	
+	public static Array<String> getMonsterStats(String name) {
+		Array<String> list = new Array<>();
+		try {
+			PreparedStatement stm = con.prepareStatement(STR_MON_STATS);
+			stm.setString(1, name);
+			ResultSet rs = stm.executeQuery();
+			for (int i = 1; i <= 9; i++) {
 				list.add(rs.getString(i));
 			}
 			return list;

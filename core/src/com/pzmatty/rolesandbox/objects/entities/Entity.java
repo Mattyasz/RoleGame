@@ -6,7 +6,7 @@ import com.pzmatty.rolesandbox.objects.GameObject;
 
 public abstract class Entity extends GameObject {
 
-	private String name;
+	protected String name;
 
 	public Entity(Rectangle rect, boolean block, String name) {
 		super(rect, block);

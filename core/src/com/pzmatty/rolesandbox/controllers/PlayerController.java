@@ -10,6 +10,7 @@ import com.pzmatty.rolesandbox.managers.TiledMapManager.ActionState;
 import com.pzmatty.rolesandbox.objects.entities.Entity;
 import com.pzmatty.rolesandbox.screens.ScreenGame;
 import com.pzmatty.rolesandbox.ui.InfoGroupUI;
+import com.pzmatty.rolesandbox.ui.InfoMonsterUI;
 
 public class PlayerController extends InputAdapter {
 
@@ -75,6 +76,7 @@ public class PlayerController extends InputAdapter {
 			break;
 		case Keys.K:
 			game.getUI().getActor("Info", InfoGroupUI.class).setVisible(true);
+			game.getUI().getActor("Monster", InfoMonsterUI.class).setVisible(true);
 			Gdx.input.setInputProcessor(game.getCursorController().set(tilemap.getPlayer().getPosition()));
 			tilemap.setState(ActionState.CURSOR);
 		}

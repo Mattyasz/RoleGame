@@ -25,6 +25,7 @@ import com.pzmatty.rolesandbox.objects.ISwitch;
 import com.pzmatty.rolesandbox.objects.entities.AnimatedEntity;
 import com.pzmatty.rolesandbox.objects.entities.Character;
 import com.pzmatty.rolesandbox.objects.entities.Entity;
+import com.pzmatty.rolesandbox.objects.entities.Monster;
 import com.pzmatty.rolesandbox.objects.entities.StaticEntity;
 import com.pzmatty.rolesandbox.objects.entities.Trigger;
 import com.pzmatty.rolesandbox.objects.entities.switchs.DoorSwitch;
@@ -50,6 +51,7 @@ public class TiledMapManager {
 	private SpriteBatch batch;
 	private FitViewport viewport;
 
+	private Array<Monster> monsters;
 	private Array<Character> characters;
 	private Array<ISwitch> switchs;
 	private Array<Trigger> triggers;
@@ -62,13 +64,14 @@ public class TiledMapManager {
 
 	private MapObjects objectLayer;
 
-	private Character player;
+	private Monster player;
 
 	private String mapName;
 
 	public TiledMapManager(SpriteBatch batch, String mapName) {
 		this.mapName = mapName;
 		this.state = ActionState.PLAYER;
+		this.monsters = new Array<>();
 		this.characters = new Array<>();
 		this.switchs = new Array<>();
 		this.triggers = new Array<>();
@@ -84,12 +87,12 @@ public class TiledMapManager {
 		loadMap(mapName);
 	}
 
-	public void addCharacter(Character entity) {
-		characters.add(entity);
+	public void addMonster(Monster entity) {
+		monsters.add(entity);
 	}
 
 	public boolean checkEntities(Entity entity, Vector2 position) {
-		for (Character other : characters) {
+		for (Monster other : monsters) {
 			if (other.getPosition().equals(position) && other.isBlock() && other != entity) {
 				Gdx.app.log(TAG, "Character collide");
 				return true;
@@ -143,13 +146,32 @@ public class TiledMapManager {
 		return false;
 	}
 
-	public void createCharacter(Rectangle rectangle, MapProperties properties) {
-		characters.add(new Character(AssetsManager.getAnimated(properties.get("name", String.class), "CHAR"),
-				rectToWorld(rectangle), true, properties.get("name", String.class)));
-	}
+//	public void createCharacter(Rectangle rectangle, MapProperties properties) {
+//		characters.add(new Character(AssetsManager.getAnimated(properties.get("name", String.class), "CHAR"),
+//				rectToWorld(rectangle), true, properties.get("name", String.class)));
+//	}
 
-	public void createCharacter(String name, Rectangle rectangle) {
-		characters.add(new Character(AssetsManager.getAnimated(name, "CHAR"), rectToWorld(rectangle), true, name));
+//	public void createCharacter(String name, Rectangle rectangle) {
+//		Array<String> properties = DatabaseManager.getCharacterStats(name);
+//		Character chr = new Character(AssetsManager.getAnimated(name, "MON"), rectToWorld(rectangle), true, name);
+//
+//		chr.setProperties(properties.get(0), properties.get(1), properties.get(2), properties.get(3),
+//				Integer.parseInt(properties.get(4)), Integer.parseInt(properties.get(5)),
+//				Integer.parseInt(properties.get(6)), Integer.parseInt(properties.get(7)),
+//				Integer.parseInt(properties.get(8)), Integer.parseInt(properties.get(9)));
+//		characters.add(chr);
+//
+//	}
+	
+//	public void createMonster(Rectangle rectangle, MapProperties properties) {
+//		monsters.add(new Monster(AssetsManager.getAnimated(properties.get("name", String.class), "CHAR"),
+//				rectToWorld(rectangle), true, properties.get("name", String.class)));
+//	}
+
+	public void createMonster(String name, Rectangle rectangle) {
+		Monster mon = new Monster(AssetsManager.getAnimated(name, "MON"), rectToWorld(rectangle), true, name, DatabaseManager.getMonsterStats(name));
+		monsters.add(mon);
+
 	}
 
 	public void createDoor(Rectangle rectangle, MapProperties properties) {
@@ -167,11 +189,19 @@ public class TiledMapManager {
 		return camera;
 	}
 
-	public Entity getCharacter(int index) {
+	public Character getCharacter(int index) {
 		if (index <= characters.size)
 			return characters.get(index);
 		else
 			return characters.get(0);
+	}
+	
+	public Monster getMonster(int index) {
+		if (index <= monsters.size)
+			return monsters.get(index);
+		else {
+			return monsters.get(0);
+		}
 	}
 
 	public TiledMap getMap() {
@@ -193,12 +223,6 @@ public class TiledMapManager {
 
 	public Array<String> getTileInfo(Vector2 position) {
 		Array<String> info = new Array<>();
-		for (Character other : characters) {
-			if (other.getPosition().equals(position)) {
-				info.add(other.getName());
-				break;
-			}
-		}
 		for (StaticEntity item : items) {
 			if (item.getPosition().equals(position)) {
 				info.add(item.getName());
@@ -225,6 +249,15 @@ public class TiledMapManager {
 		}
 		return info;
 	}
+	
+	public Array<String> getMonsterInfo(Vector2 position) {
+		for (Monster other : monsters) {
+			if (other.getPosition().equals(position)) {
+				return other.getProperties();
+			}
+		}
+		return null;
+	}
 
 	public Viewport getViewport() {
 		return viewport;
@@ -244,8 +277,8 @@ public class TiledMapManager {
 
 		Vector2 playerPos = getSpawnPosition("Spawn.PlayerSpawn");
 		Rectangle playerRect = new Rectangle(playerPos.x, playerPos.y, 16, 16);
-		createCharacter("Paesant", playerRect);
-		this.player = characters.get(0);
+		createMonster("Paesant", playerRect);
+		this.player = monsters.get(0);
 		setCameraPosition(player.getPosition());
 		loadMapObjects();
 	}
@@ -300,9 +333,9 @@ public class TiledMapManager {
 				if (parts[1].equals("Door")) {
 					createDoor(rectangle, properties);
 				}
-				// Load character objects
-			} else if (parts[0].equals("Char")) {
-				createCharacter(parts[1], rectangle);
+				// Load monsters
+			} else if (parts[0].equals("Mon")) {
+				createMonster(parts[1], rectangle);
 			} else if (parts[0].equals("Trigger")) {
 				triggers.add(new Trigger(rectToWorld(rectangle), parts[1]));
 			}
@@ -339,8 +372,8 @@ public class TiledMapManager {
 		if (state.equals(ActionState.CURSOR)) {
 			CursorController.getCursor().draw(batch);
 		}
-		for (Character chara : characters) {
-			chara.draw(batch);
+		for (Monster monster : monsters) {
+			monster.draw(batch);
 		}
 		batch.end();
 	}
@@ -355,8 +388,8 @@ public class TiledMapManager {
 				vector.y + (TiledMapManager.WORLD_UNIT / 2) * TiledMapManager.WORLD_TO_SCREEN, 0.0f);
 	}
 
-	public void setPlayer(Character character) {
-		player = character;
+	public void setPlayer(Monster monster) {
+		player = monster;
 	}
 
 	public void setState(ActionState state) {
@@ -395,6 +428,7 @@ public class TiledMapManager {
 
 	public void unloadMap() {
 		this.characters.clear();
+		this.monsters.clear();
 		this.tiles.clear();
 		this.props.clear();
 		this.items.clear();

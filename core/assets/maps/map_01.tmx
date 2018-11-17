@@ -76,14 +76,14 @@
     <property name="map" value="map_02"/>
    </properties>
   </object>
-  <object id="19" name="Char.Soldier" x="32" y="192" width="16" height="16"/>
-  <object id="20" name="Char.Pirate" x="96" y="128" width="16" height="16"/>
+  <object id="19" name="Mon.Soldier" x="32" y="192" width="16" height="16"/>
+  <object id="20" name="Mon.Pirate" x="96" y="128" width="16" height="16"/>
   <object id="21" name="Trigger.OnEnter" x="176" y="64" width="32" height="16"/>
   <object id="25" name="Trigger.OnExit" x="144" y="64" width="32" height="16"/>
-  <object id="30" name="Char.Squire" x="64" y="192" width="16" height="16"/>
-  <object id="31" name="Char.Soldier" x="208" y="192" width="16" height="16"/>
-  <object id="32" name="Char.Soldier" x="64" y="96" width="16" height="16"/>
-  <object id="33" name="Char.Soldier" x="32" y="16" width="16" height="16"/>
+  <object id="30" name="Mon.Squire" x="64" y="192" width="16" height="16"/>
+  <object id="31" name="Mon.Soldier" x="208" y="192" width="16" height="16"/>
+  <object id="32" name="Mon.Soldier" x="64" y="96" width="16" height="16"/>
+  <object id="33" name="Mon.Soldier" x="32" y="16" width="16" height="16"/>
   <object id="35" name="Switch.Door" x="128" y="208" width="16" height="16">
    <properties>
     <property name="align" value="V"/>

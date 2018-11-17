@@ -7,7 +7,6 @@ import com.badlogic.gdx.utils.Array;
 public class Character extends AnimatedEntity {
 
 	// Character stats
-	private String name;
 	private String race;
 	private String family;
 	private String _class;
@@ -45,11 +44,6 @@ public class Character extends AnimatedEntity {
 
 	public int getHp() {
 		return hp;
-	}
-
-	@Override
-	public String getName() {
-		return name;
 	}
 
 	public Array<String> getProperties() {
@@ -100,10 +94,6 @@ public class Character extends AnimatedEntity {
 
 	public void setHp(int hp) {
 		this.hp = hp;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public void setProperties(String name, String race, String _class, String family, int strength, int dextery,

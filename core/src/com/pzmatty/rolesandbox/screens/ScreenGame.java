@@ -3,6 +3,7 @@ package com.pzmatty.rolesandbox.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.pzmatty.rolesandbox.RoleSandbox;
 import com.pzmatty.rolesandbox.controllers.CursorController;
@@ -49,9 +50,9 @@ public class ScreenGame extends ScreenAdapter {
 				table.setWidth(Gdx.graphics.getWidth());
 				table.top();
 
-				table.add(getActor("Info", InfoGroupUI.class)).right().width(200).expandX().padTop(10);
+				table.add(getActor("Info", InfoGroupUI.class)).right().width(180).expandX().padTop(10).padRight(10);
 				table.row();
-				table.add(getActor("Monster", InfoMonsterUI.class)).right().width(200).expandX().padTop(10);
+				table.add(getActor("Monster", InfoMonsterUI.class)).right().width(180).expandX().padTop(10).padRight(10);
 				stage.addActor(table);
 
 				// addActor(new Label("", skin, "default"), "InfoCursor");
@@ -114,8 +115,8 @@ public class ScreenGame extends ScreenAdapter {
 
 	@Override
 	public void resize(int width, int height) {
+		ui.resize(width, height);
 		map.resize(width, height);
-		// ui.resize(width, height);
 	}
 
 	@Override

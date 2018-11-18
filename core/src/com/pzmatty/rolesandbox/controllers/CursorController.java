@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.pzmatty.rolesandbox.managers.AssetsManager;
 import com.pzmatty.rolesandbox.managers.DatabaseManager;
+import com.pzmatty.rolesandbox.managers.SoundManager;
 import com.pzmatty.rolesandbox.managers.TiledMapManager;
 import com.pzmatty.rolesandbox.managers.TiledMapManager.ActionState;
 import com.pzmatty.rolesandbox.managers.UIManager;
@@ -87,6 +88,7 @@ public class CursorController extends InputAdapter {
 			y = 1;
 			break;
 		case Keys.ESCAPE:
+			SoundManager.playSound("CURSOR_CLOSE");
 			game.getUI().getActor("Info", InfoGroupUI.class).clearInfo();
 			game.getUI().getActor("Info", InfoGroupUI.class).setVisible(false);
 			game.getUI().getActor("Monster", InfoMonsterUI.class).clearInfo();
@@ -97,6 +99,7 @@ public class CursorController extends InputAdapter {
 		}
 
 		if (x != 0 || y != 0) {
+			SoundManager.playSound("CURSOR_MOVE");
 			cursor.translate(new Vector2(x, y));
  			tilemap.setCameraPosition(cursor.getPosition());
  			tilemap.getCamera().update();

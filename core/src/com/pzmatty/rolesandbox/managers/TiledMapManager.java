@@ -17,7 +17,7 @@ import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.pzmatty.rolesandbox.controllers.CursorController;
 import com.pzmatty.rolesandbox.objects.GameObject;
@@ -40,8 +40,8 @@ public class TiledMapManager {
 
 	public static final float WORLD_TO_SCREEN = 1 / 16f;
 	public static final float WORLD_UNIT = 16;
-	private static final float WORLD_WIDTH = 26;
-	private static final float WORLD_HEIGHT = 16;
+	public static final float WORLD_WIDTH = 26;
+	public static final float WORLD_HEIGHT = 16;
 	public static final float ASPECT_RATIO = Gdx.graphics.getWidth() / Gdx.graphics.getHeight();
 	private ActionState state;
 
@@ -49,7 +49,7 @@ public class TiledMapManager {
 	private OrthogonalTiledMapRenderer renderer;
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
-	private FitViewport viewport;
+	private Viewport viewport;
 
 	private Array<Monster> monsters;
 	private Array<Character> characters;
@@ -80,7 +80,8 @@ public class TiledMapManager {
 		this.tiles = new Array<>();
 
 		this.camera = new OrthographicCamera();
-		this.viewport = new FitViewport(WORLD_WIDTH * ASPECT_RATIO, WORLD_HEIGHT, camera);
+		//this.viewport = new FitViewport(WORLD_WIDTH * ASPECT_RATIO, WORLD_HEIGHT, camera);
+		this.viewport = new ExtendViewport(WORLD_WIDTH * ASPECT_RATIO, WORLD_HEIGHT, camera);
 
 		this.batch = batch;
 
@@ -351,7 +352,7 @@ public class TiledMapManager {
 	public void render(float delta) {
 
 		camera.update();
-		// camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
+		//camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
 		renderer.setView(camera);
 		renderer.render();
 

@@ -12,7 +12,7 @@ public class InfoMonsterUI extends Window {
 	private VerticalGroup group;
 
 	public InfoMonsterUI(Skin skin) {
-		super("Monster", skin);
+		super(" Monster", skin);
 		this.setVisible(false);
 		this.group = new VerticalGroup();
 		this.group.pad(10.0f);

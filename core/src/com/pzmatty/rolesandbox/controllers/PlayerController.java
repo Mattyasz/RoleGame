@@ -75,6 +75,7 @@ public class PlayerController extends InputAdapter {
 			y = 1;
 			break;
 		case Keys.K:
+			SoundManager.playSound("CURSOR_OPEN");
 			game.getUI().getActor("Info", InfoGroupUI.class).setVisible(true);
 			game.getUI().getActor("Monster", InfoMonsterUI.class).setVisible(true);
 			Gdx.input.setInputProcessor(game.getCursorController().set(tilemap.getPlayer().getPosition()));

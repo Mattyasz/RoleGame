@@ -3,6 +3,8 @@ package com.pzmatty.rolesandbox;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.kotcrab.vis.ui.VisUI;
 import com.pzmatty.rolesandbox.managers.AssetsManager;
 import com.pzmatty.rolesandbox.managers.DatabaseManager;
 import com.pzmatty.rolesandbox.screens.ScreenGame;
@@ -22,6 +24,8 @@ public class RoleSandbox extends Game {
 		DatabaseManager.connect();
 
 		AssetsManager.loadAssets();
+		
+		VisUI.load(AssetsManager.get(DatabaseManager.getConstant("SKIN_PATH"), Skin.class));
 
 		batch = new SpriteBatch();
 
@@ -33,6 +37,7 @@ public class RoleSandbox extends Game {
 	@Override
 	public void dispose() {
 		AssetsManager.unloadAssets();
+		VisUI.dispose();
 		batch.dispose();
 		screenGame.dispose();
 		DatabaseManager.disconnect();

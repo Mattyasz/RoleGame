@@ -12,7 +12,7 @@ public class InfoGroupUI extends Window {
 	private VerticalGroup group;
 
 	public InfoGroupUI(Skin skin) {
-		super("Info", skin);
+		super(" Info", skin);
 		this.setVisible(false);
 		this.group = new VerticalGroup();
 		this.group.pad(10.0f);

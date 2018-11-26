@@ -11,27 +11,26 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import redesign.components.AnimationComponent;
-import redesign.components.Mapper;
-import redesign.components.PositionComponent;
 import redesign.components.TextureComponent;
+import redesign.components.TransformComponent;
+import redesign.managers.Mapper;
 
 public class RenderSystem extends EntitySystem {
-	
+
 	private static final float ASPECT_RATIO = Gdx.graphics.getWidth() / Gdx.graphics.getHeight();
 	private static final float WORLD_WIDTH = 32;
 	private static final float WORLD_HEIGHT = 18;
 	private static final float WORLD_UNIT = 16;
 	private static final float WORLD_TO_SCREEN = 1.0f / WORLD_UNIT;
-	
+
 	private ImmutableArray<Entity> entities;
 	private Entity map;
 	private SpriteBatch batch;
 	private OrthographicCamera camera;
 	private FitViewport viewport;
 
-	public RenderSystem(int priority, SpriteBatch batch) {
-		super(priority);
+	public RenderSystem(SpriteBatch batch) {
+		super();
 		this.batch = batch;
 		camera = new OrthographicCamera();
 		viewport = new FitViewport(WORLD_WIDTH * ASPECT_RATIO, WORLD_HEIGHT, camera);
@@ -39,39 +38,37 @@ public class RenderSystem extends EntitySystem {
 
 	@Override
 	public void addedToEngine(Engine engine) {
-		entities = engine.getEntitiesFor(Family
-				.all(PositionComponent.class)
-				.one(TextureComponent.class, AnimationComponent.class)
-				.get());
-		//map = engine.getEntitiesFor(Family.all(MapComponent.class).get()).first();
+		entities = engine.getEntitiesFor(
+				Family.all(TransformComponent.class).one(TextureComponent.class).get());
+		// map = engine.getEntitiesFor(Family.all(MapComponent.class).get()).first();
 	}
 
 	@Override
 	public void update(float deltaTime) {
 		// Draw map
-		
+
 		// Draw Game Objects
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 		for (Entity entity : entities) {
-			PositionComponent position = Mapper.position.get(entity);
-			AnimationComponent animation = Mapper.animation.get(entity);
-			
-			animation.stateTime += deltaTime; 
-			
-			batch.draw(animation.animation.getKeyFrame(animation.stateTime, true),
-					(position.x * WORLD_TO_SCREEN) * WORLD_UNIT, (position.y * WORLD_TO_SCREEN) * WORLD_UNIT,
-					0, 0,
-					16 * WORLD_TO_SCREEN, 16 * WORLD_TO_SCREEN,
-					1.0f, 1.0f,
-					0.0f);
+			TransformComponent transform = Mapper.transform.get(entity);
+			TextureComponent tc = Mapper.texture.get(entity);
+			if (tc.region != null && transform.isVisible) {
+				batch.draw(tc.region, // Texture
+						(transform.position.x * WORLD_TO_SCREEN) * WORLD_UNIT, // Position X
+						(transform.position.y * WORLD_TO_SCREEN) * WORLD_UNIT, // Position Y
+						0, 0, // Origin X and Y
+						transform.width * WORLD_TO_SCREEN, transform.height * WORLD_TO_SCREEN, // Width and Height
+						transform.scale.x, transform.scale.y, // Scale
+						transform.rotation); // Rotation				
+			}
 		}
 		batch.end();
 	}
-	
+
 	public Viewport getViewport() {
 		return viewport;
 	}
-	
+
 }

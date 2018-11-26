@@ -2,6 +2,9 @@ package redesign;
 
 import com.badlogic.gdx.Game;
 
+import redesign.managers.AssetsManager;
+import redesign.managers.DatabaseManager;
+
 public class LostLib extends Game {
 
 	private AssetsManager assets;

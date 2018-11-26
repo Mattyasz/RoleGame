@@ -1,4 +1,4 @@
-package redesign;
+package redesign.managers;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -8,7 +8,9 @@ import com.badlogic.gdx.utils.Array;
 
 import redesign.components.AnimationComponent;
 import redesign.components.MapComponent;
-import redesign.components.PositionComponent;
+import redesign.components.PlayerComponent;
+import redesign.components.TextureComponent;
+import redesign.components.TransformComponent;
 
 public final class GameFactory {
 	
@@ -18,17 +20,24 @@ public final class GameFactory {
 	public static Entity createMonster(String name, int x, int y) {
 		Entity ent = new Entity();
 		
-		PositionComponent pc = new PositionComponent();
+		TransformComponent pc = new TransformComponent();
 		AnimationComponent ac = new AnimationComponent();
+		TextureComponent tc = new TextureComponent();
 		
 		ac.animation = new Animation<TextureRegion>(0.5f, getTextures(name));
-		pc.x = x;
-		pc.y = y;
+		pc.position.set(x, y);
+		pc.width = ac.animation.getKeyFrames()[0].getRegionWidth();
+		pc.height = ac.animation.getKeyFrames()[0].getRegionHeight();
 		
 		ent.add(pc);
 		ent.add(ac);
+		ent.add(tc);
 		
 		return ent;
+	}
+	
+	public static Entity setPlayer(Entity entity) {
+		return entity.add(new PlayerComponent());
 	}
 	
 	public static Entity createMap(String mapName) {

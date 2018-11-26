@@ -6,6 +6,9 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import redesign.managers.GameFactory;
+import redesign.systems.AnimationSystem;
+import redesign.systems.PlayerInputSystem;
 import redesign.systems.RenderSystem;
 
 public class ScreenGame extends ScreenAdapter {
@@ -14,6 +17,8 @@ public class ScreenGame extends ScreenAdapter {
 	
 	private Engine engine;
 	private RenderSystem renderSystem;
+	private AnimationSystem animationSystem;
+	private PlayerInputSystem inputSystem;
 	
 	public ScreenGame(LostLib game) {
 		
@@ -24,14 +29,19 @@ public class ScreenGame extends ScreenAdapter {
 		
 		engine = new Engine();
 		
-		renderSystem = new RenderSystem(1, batch);
+		renderSystem = new RenderSystem(batch);
+		inputSystem = new PlayerInputSystem();
+		animationSystem = new AnimationSystem();
 		
-		engine.addSystem(renderSystem);
-		
-		engine.addEntity(GameFactory.createMonster("Soldier", 0, 0));
+		engine.addEntity(GameFactory.setPlayer(GameFactory.createMonster("Soldier", 0, 0)));
 		engine.addEntity(GameFactory.createMonster("Paesant", 6, 2));
 		engine.addEntity(GameFactory.createMonster("Pirate", 4, 1));
 		engine.addEntity(GameFactory.createMonster("Squire", 2, 3));
+		
+		engine.addSystem(renderSystem);
+		engine.addSystem(animationSystem);
+		engine.addSystem(inputSystem);
+		
 	}
 
 	@Override

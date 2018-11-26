@@ -21,7 +21,7 @@ public final class GameFactory {
 		PositionComponent pc = new PositionComponent();
 		AnimationComponent ac = new AnimationComponent();
 		
-		ac.animation = new Animation<TextureRegion>(0.025f, getTextures(name));
+		ac.animation = new Animation<TextureRegion>(0.5f, getTextures(name));
 		pc.x = x;
 		pc.y = y;
 		
@@ -47,7 +47,7 @@ public final class GameFactory {
 	private static TextureRegion[] getTextures(String name) {
 		TextureRegion[] regions = new TextureRegion[2];
 		Array<String> data = database.getAnimation(name);
-		int atlasWidth = assets.getAtlas().findRegion(data.get(0)).getRegionWidth();
+		int atlasWidth = (assets.getAtlas().findRegion(data.get(0)).getRegionWidth() / 2) / 16;
 		
 		regions[0] = assets.getTile(data.get(0), Integer.valueOf(data.get(1)), Integer.valueOf(data.get(2)));
 		regions[1] = assets.getTile(data.get(0), Integer.valueOf(data.get(1)) + atlasWidth, Integer.valueOf(data.get(2)));

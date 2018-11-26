@@ -29,6 +29,9 @@ public class ScreenGame extends ScreenAdapter {
 		engine.addSystem(renderSystem);
 		
 		engine.addEntity(GameFactory.createMonster("Soldier", 0, 0));
+		engine.addEntity(GameFactory.createMonster("Paesant", 6, 2));
+		engine.addEntity(GameFactory.createMonster("Pirate", 4, 1));
+		engine.addEntity(GameFactory.createMonster("Squire", 2, 3));
 	}
 
 	@Override

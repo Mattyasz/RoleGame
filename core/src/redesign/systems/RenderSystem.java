@@ -12,7 +12,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import redesign.components.AnimationComponent;
-import redesign.components.MapComponent;
 import redesign.components.Mapper;
 import redesign.components.PositionComponent;
 import redesign.components.TextureComponent;
@@ -20,8 +19,8 @@ import redesign.components.TextureComponent;
 public class RenderSystem extends EntitySystem {
 	
 	private static final float ASPECT_RATIO = Gdx.graphics.getWidth() / Gdx.graphics.getHeight();
-	private static final float WORLD_WIDTH = 16;
-	private static final float WORLD_HEIGHT = 9;
+	private static final float WORLD_WIDTH = 32;
+	private static final float WORLD_HEIGHT = 18;
 	private static final float WORLD_UNIT = 16;
 	private static final float WORLD_TO_SCREEN = 1.0f / WORLD_UNIT;
 	
@@ -53,31 +52,20 @@ public class RenderSystem extends EntitySystem {
 		
 		// Draw Game Objects
 		camera.update();
-		viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 		for (Entity entity : entities) {
 			PositionComponent position = Mapper.position.get(entity);
-			//TextureComponent sprite = Mapper.sprite.get(entity);
 			AnimationComponent animation = Mapper.animation.get(entity);
 			
-			animation.stateTime += Gdx.graphics.getDeltaTime(); 
+			animation.stateTime += deltaTime; 
 			
-//			if (animation == null) {
-//				batch.draw(sprite.texture,
-//						(position.x * WORLD_TO_SCREEN) * WORLD_UNIT, (position.y * WORLD_TO_SCREEN) * WORLD_UNIT,
-//						0, 0,
-//						16 * WORLD_TO_SCREEN, 16 * WORLD_TO_SCREEN,
-//						1.0f, 1.0f,
-//						0.0f);
-//			} else {
-				batch.draw(animation.animation.getKeyFrame(deltaTime),
-						(position.x * WORLD_TO_SCREEN) * WORLD_UNIT, (position.y * WORLD_TO_SCREEN) * WORLD_UNIT,
-						0, 0,
-						16 * WORLD_TO_SCREEN, 16 * WORLD_TO_SCREEN,
-						1.0f, 1.0f,
-						0.0f);
-//			}
+			batch.draw(animation.animation.getKeyFrame(animation.stateTime, true),
+					(position.x * WORLD_TO_SCREEN) * WORLD_UNIT, (position.y * WORLD_TO_SCREEN) * WORLD_UNIT,
+					0, 0,
+					16 * WORLD_TO_SCREEN, 16 * WORLD_TO_SCREEN,
+					1.0f, 1.0f,
+					0.0f);
 		}
 		batch.end();
 	}

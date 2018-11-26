@@ -19,7 +19,7 @@ public class DatabaseManager {
 	
 	public void connect() {
 		try {
-			con = DriverManager.getConnection("jdbc:sqlite:" + Gdx.files.internal("data/Entities.db").path());
+			con = DriverManager.getConnection("jdbc:sqlite:" + Gdx.files.internal("data/LostLib.db").path());
 		} catch (SQLException e) {
 			Gdx.app.log(TAG, "Error - " + e.getMessage());
 		}

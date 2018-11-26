@@ -7,6 +7,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class AnimationComponent implements Component {
 
 	public Animation<TextureRegion> animation;
-	public float stateTime;
+	public float stateTime = 0.0f;
 	
 }

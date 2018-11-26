@@ -14,6 +14,4 @@ public class GameState {
 		mapList = new Array<Map>();
 	}
 	
-	public 
-	
 }

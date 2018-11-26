@@ -2,6 +2,7 @@ package redesign;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
@@ -14,7 +15,7 @@ import redesign.components.SpriteComponent;
 import redesign.systems.RenderSystem;
 
 public class ScreenGame extends ScreenAdapter {
-
+	
 	private SpriteBatch batch;
 	
 	private Engine engine;
@@ -33,7 +34,13 @@ public class ScreenGame extends ScreenAdapter {
 		
 		engine.addSystem(renderSystem);
 		
-		engine.addEntity(getMonster());
+		engine.addEntity(getMonster(0, 0));
+		engine.addEntity(getMonster(1, 0));
+		engine.addEntity(getMonster(0, 1));
+		engine.addEntity(getMonster(-1, 0));
+		engine.addEntity(getMonster(0, -1));
+		engine.addEntity(getMonster(0, -2));
+		engine.addEntity(getMonster(0, -3));
 	}
 
 	@Override
@@ -47,19 +54,25 @@ public class ScreenGame extends ScreenAdapter {
 	public void dispose() {
 		cursor.dispose();
 	}
-	
-	private Entity getMonster() {
+
+	@Override
+	public void resize(int width, int height) {
+		renderSystem.getViewport().update(width, height);
+		renderSystem.getViewport().getCamera().update();
+	}
+
+	private Entity getMonster(int x, int y) {
 		Entity ent = new Entity();
 		
-		SpriteComponent sc = new SpriteComponent();
-		PositionComponent pc = new PositionComponent();
+		SpriteComponent sprite = new SpriteComponent();
+		PositionComponent position = new PositionComponent();
 		
-		sc.texture = new TextureRegion(cursor);
-		pc.x = 0;
-		pc.y = 0;
+		sprite.texture = new TextureRegion(cursor);
+		position.x = x;
+		position.y = y;
 		
-		ent.add(sc);
-		ent.add(pc);
+		ent.add(sprite);
+		ent.add(position);
 		
 		return ent;
 	}

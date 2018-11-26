@@ -72,6 +72,10 @@ public abstract class AssetsManager {
 		}
 		assets.finishLoading();
 	}
+	
+	public static <T> void load(String fileName, Class<T> type) {
+		assets.load(fileName, type);
+	}
 
 	public static void unload(String fileName) {
 		assets.unload(fileName);

@@ -1,0 +1,62 @@
+
+textures.pack.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Decor
+  rotate: false
+  xy: 324, 4
+  size: 256, 352
+  orig: 256, 352
+  offset: 0, 0
+  index: -1
+Door
+  rotate: false
+  xy: 2, 68
+  size: 256, 96
+  orig: 256, 96
+  offset: 0, 0
+  index: -1
+Fence
+  rotate: false
+  xy: 582, 114
+  size: 128, 192
+  orig: 128, 192
+  offset: 0, 0
+  index: -1
+Floor
+  rotate: false
+  xy: 324, 358
+  size: 336, 624
+  orig: 336, 624
+  offset: 0, 0
+  index: -1
+Humanoid
+  rotate: false
+  xy: 662, 550
+  size: 256, 432
+  orig: 256, 432
+  offset: 0, 0
+  index: -1
+Player
+  rotate: false
+  xy: 662, 308
+  size: 256, 240
+  orig: 256, 240
+  offset: 0, 0
+  index: -1
+Tile
+  rotate: false
+  xy: 2, 2
+  size: 128, 64
+  orig: 128, 64
+  offset: 0, 0
+  index: -1
+Wall
+  rotate: false
+  xy: 2, 166
+  size: 320, 816
+  orig: 320, 816
+  offset: 0, 0
+  index: -1

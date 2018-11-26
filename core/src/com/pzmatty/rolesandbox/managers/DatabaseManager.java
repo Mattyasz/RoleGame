@@ -14,7 +14,7 @@ public abstract class DatabaseManager {
 
 	private static final String TAG = DatabaseManager.class.getSimpleName();
 	private static Connection con;
-	private static final String URL = "jdbc:sqlite:" + Gdx.files.internal("data/Entities.db").path();;
+	private static final String URL = "jdbc:sqlite:" + Gdx.files.internal("data/Entities.db").path();
 	private static final String STR_MONSTER = "SELECT * FROM monsters m WHERE m.name = ?";
 	private static final String STR_CONSTANT = "SELECT c.value FROM constants c WHERE c.name = ?";
 	private static final String STR_MON_VAL = "SELECT m.? FROM monsters m WHERE m.char_name = ?";

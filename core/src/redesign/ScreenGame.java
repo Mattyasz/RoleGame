@@ -15,7 +15,11 @@ public class ScreenGame extends ScreenAdapter {
 	private Engine engine;
 	private RenderSystem renderSystem;
 	
-	public ScreenGame() {
+	public ScreenGame(LostLib game) {
+		
+		GameFactory.setAssetManager(game.getAssets());
+		GameFactory.setDatabaseManager(game.getDatabase());
+		
 		batch = new SpriteBatch();
 		
 		engine = new Engine();
@@ -24,13 +28,7 @@ public class ScreenGame extends ScreenAdapter {
 		
 		engine.addSystem(renderSystem);
 		
-		engine.addEntity(EntityFactory.createMonster(0, 0));
-		engine.addEntity(EntityFactory.createMonster(1, 0));
-		engine.addEntity(EntityFactory.createMonster(0, 1));
-		engine.addEntity(EntityFactory.createMonster(-1, 0));
-		engine.addEntity(EntityFactory.createMonster(0, -1));
-		engine.addEntity(EntityFactory.createMonster(0, -2));
-		engine.addEntity(EntityFactory.createMonster(0, -3));
+		engine.addEntity(GameFactory.createMonster("Soldier", 0, 0));
 	}
 
 	@Override
@@ -46,11 +44,5 @@ public class ScreenGame extends ScreenAdapter {
 		renderSystem.getViewport().update(width, height);
 		renderSystem.getViewport().getCamera().update();
 	}
-
-	@Override
-	public void dispose() {
-		AssetsManager.unload();
-	}
-	
 	
 }

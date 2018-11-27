@@ -6,6 +6,6 @@ import redesign.commands.Command;
 
 public class InputComponent implements Component {
 
-	Command command = null;
+	public Command command = null;
 	
 }

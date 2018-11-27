@@ -7,6 +7,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.utils.Array;
 
 import redesign.components.AnimationComponent;
+import redesign.components.InputComponent;
 import redesign.components.MapComponent;
 import redesign.components.PlayerComponent;
 import redesign.components.TextureComponent;
@@ -37,7 +38,8 @@ public final class GameFactory {
 	}
 	
 	public static Entity setPlayer(Entity entity) {
-		return entity.add(new PlayerComponent());
+		return entity.add(new PlayerComponent())
+				.add(new InputComponent());
 	}
 	
 	public static Entity createMap(String mapName) {

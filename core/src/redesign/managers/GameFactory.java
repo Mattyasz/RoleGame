@@ -4,9 +4,11 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 
 import redesign.components.AnimationComponent;
+import redesign.components.CollisionComponent;
 import redesign.components.InputComponent;
 import redesign.components.MapComponent;
 import redesign.components.PlayerComponent;
@@ -24,15 +26,20 @@ public final class GameFactory {
 		TransformComponent pc = new TransformComponent();
 		AnimationComponent ac = new AnimationComponent();
 		TextureComponent tc = new TextureComponent();
+		CollisionComponent cc = new CollisionComponent();
 		
 		ac.animation = new Animation<TextureRegion>(0.5f, getTextures(name));
 		pc.position.set(x, y);
 		pc.width = ac.animation.getKeyFrames()[0].getRegionWidth();
 		pc.height = ac.animation.getKeyFrames()[0].getRegionHeight();
+		cc.rect = new Rectangle(0, 0, ac.animation.getKeyFrames()[0].getRegionWidth(),
+				ac.animation.getKeyFrames()[0].getRegionHeight());
+		cc.block = true;
 		
 		ent.add(pc);
 		ent.add(ac);
 		ent.add(tc);
+		ent.add(cc);
 		
 		return ent;
 	}
